@@ -1,0 +1,6702 @@
+[
+ {
+  "id": "multiples-3-5",
+  "title": "Multiples de 3 ou 5",
+  "level": 1,
+  "tags": [
+   "arithmétique",
+   "boucles"
+  ],
+  "statement": "Calculer la somme de tous les entiers naturels **strictement inférieurs** à $n$\nqui sont multiples de $3$ ou de $5$.\n\n$$S(n) = \\sum_{\\substack{0 \\le k < n \\\\ 3 \\mid k \\;\\lor\\; 5 \\mid k}} k$$\n\n*Bonus :* une formule fermée en $O(1)$ existe grâce au principe d'inclusion–exclusion.",
+  "func": "solve",
+  "params": [
+   "n"
+  ],
+  "hint": "Inclusion–exclusion : multiples de 3 + multiples de 5 − multiples de 15.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     10
+    ],
+    "expected": 23
+   },
+   {
+    "args": [
+     1
+    ],
+    "expected": 0
+   },
+   {
+    "args": [
+     16
+    ],
+    "expected": 60
+   },
+   {
+    "args": [
+     1000
+    ],
+    "expected": 233168
+   },
+   {
+    "args": [
+     1000000
+    ],
+    "expected": 233333166668
+   },
+   {
+    "args": [
+     1000000000000
+    ],
+    "expected": {
+     "$big": "233333333333166666666668"
+    }
+   }
+  ],
+  "solution": "def solve(n):\n    def s(d):\n        m = (n - 1) // d\n        return d * m * (m + 1) // 2\n    return s(3) + s(5) - s(15)",
+  "rating": 800,
+  "starter": "def solve(n):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "factorielle",
+  "title": "Factorielle",
+  "level": 1,
+  "tags": [
+   "récurrence"
+  ],
+  "statement": "Retourner $n! = \\prod_{k=1}^{n} k$, avec la convention $0! = 1$.",
+  "func": "solve",
+  "params": [
+   "n"
+  ],
+  "hint": "Une simple boucle qui multiplie un accumulateur.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     0
+    ],
+    "expected": 1
+   },
+   {
+    "args": [
+     1
+    ],
+    "expected": 1
+   },
+   {
+    "args": [
+     5
+    ],
+    "expected": 120
+   },
+   {
+    "args": [
+     10
+    ],
+    "expected": 3628800
+   },
+   {
+    "args": [
+     20
+    ],
+    "expected": {
+     "$big": "2432902008176640000"
+    }
+   },
+   {
+    "args": [
+     30
+    ],
+    "expected": {
+     "$big": "265252859812191058636308480000000"
+    }
+   }
+  ],
+  "solution": "def solve(n):\n    r = 1\n    for k in range(2, n + 1):\n        r *= k\n    return r",
+  "rating": 800,
+  "starter": "def solve(n):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "est-premier",
+  "title": "Test de primalité",
+  "level": 1,
+  "tags": [
+   "nombres premiers"
+  ],
+  "statement": "Retourner `True` si $n$ est premier, `False` sinon.\n\nRappel : il suffit de tester les diviseurs $d \\le \\sqrt{n}$.",
+  "func": "solve",
+  "params": [
+   "n"
+  ],
+  "hint": "Teste les diviseurs jusqu'à √n, pas au-delà.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     2
+    ],
+    "expected": true
+   },
+   {
+    "args": [
+     1
+    ],
+    "expected": false
+   },
+   {
+    "args": [
+     17
+    ],
+    "expected": true
+   },
+   {
+    "args": [
+     91
+    ],
+    "expected": false
+   },
+   {
+    "args": [
+     97
+    ],
+    "expected": true
+   },
+   {
+    "args": [
+     7919
+    ],
+    "expected": true
+   },
+   {
+    "args": [
+     1000000007
+    ],
+    "expected": true
+   },
+   {
+    "args": [
+     999999999999
+    ],
+    "expected": false
+   }
+  ],
+  "solution": "def solve(n):\n    if n < 2:\n        return False\n    d = 2\n    while d * d <= n:\n        if n % d == 0:\n            return False\n        d += 1\n    return True",
+  "rating": 800,
+  "starter": "def solve(n):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "pgcd",
+  "title": "Algorithme d'Euclide",
+  "level": 1,
+  "tags": [
+   "arithmétique",
+   "récurrence"
+  ],
+  "statement": "Calculer $\\gcd(a, b)$ avec l'algorithme d'Euclide (sans `math.gcd`).\n\n$$\\gcd(a, b) = \\gcd(b,\\; a \\bmod b), \\qquad \\gcd(a, 0) = a$$",
+  "func": "solve",
+  "params": [
+   "a",
+   "b"
+  ],
+  "hint": "Remplace (a, b) par (b, a mod b) jusqu'à ce que b vaille 0.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     12,
+     18
+    ],
+    "expected": 6
+   },
+   {
+    "args": [
+     17,
+     5
+    ],
+    "expected": 1
+   },
+   {
+    "args": [
+     0,
+     9
+    ],
+    "expected": 9
+   },
+   {
+    "args": [
+     270,
+     192
+    ],
+    "expected": 6
+   },
+   {
+    "args": [
+     {
+      "$big": "1000000000000000000"
+     },
+     3656158440062976
+    ],
+    "expected": 262144
+   },
+   {
+    "args": [
+     1071,
+     462
+    ],
+    "expected": 21
+   }
+  ],
+  "solution": "def solve(a, b):\n    while b:\n        a, b = b, a % b\n    return a",
+  "rating": 800,
+  "starter": "def solve(a, b):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "somme-chiffres",
+  "title": "Somme des chiffres",
+  "level": 1,
+  "tags": [
+   "arithmétique"
+  ],
+  "statement": "Retourner la somme des chiffres décimaux de $n \\ge 0$, **sans convertir en chaîne**.\n\nIndice : $n \\bmod 10$ donne le dernier chiffre, $\\lfloor n / 10 \\rfloor$ le retire.",
+  "func": "solve",
+  "params": [
+   "n"
+  ],
+  "hint": "Utilise % 10 et // 10 dans une boucle.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     0
+    ],
+    "expected": 0
+   },
+   {
+    "args": [
+     7
+    ],
+    "expected": 7
+   },
+   {
+    "args": [
+     1234
+    ],
+    "expected": 10
+   },
+   {
+    "args": [
+     99999
+    ],
+    "expected": 45
+   },
+   {
+    "args": [
+     {
+      "$big": "1267650600228229401496703205376"
+     }
+    ],
+    "expected": 115
+   }
+  ],
+  "solution": "def solve(n):\n    s = 0\n    while n:\n        s += n % 10\n        n //= 10\n    return s",
+  "rating": 800,
+  "starter": "def solve(n):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "fibonacci",
+  "title": "Suite de Fibonacci",
+  "level": 1,
+  "tags": [
+   "suites",
+   "récurrence"
+  ],
+  "statement": "Retourner $F_n$ avec $F_0 = 0$, $F_1 = 1$ et $F_{n} = F_{n-1} + F_{n-2}$.\n\nAttention : la récursion naïve est en $O(\\varphi^n)$. Fais mieux.",
+  "func": "solve",
+  "params": [
+   "n"
+  ],
+  "hint": "Garde seulement les deux derniers termes en mémoire.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     0
+    ],
+    "expected": 0
+   },
+   {
+    "args": [
+     1
+    ],
+    "expected": 1
+   },
+   {
+    "args": [
+     2
+    ],
+    "expected": 1
+   },
+   {
+    "args": [
+     10
+    ],
+    "expected": 55
+   },
+   {
+    "args": [
+     50
+    ],
+    "expected": 12586269025
+   },
+   {
+    "args": [
+     200
+    ],
+    "expected": {
+     "$big": "280571172992510140037611932413038677189525"
+    }
+   }
+  ],
+  "solution": "def solve(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a",
+  "rating": 800,
+  "starter": "def solve(n):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "leibniz-pi",
+  "title": "Série de Leibniz",
+  "level": 1,
+  "tags": [
+   "séries",
+   "analyse"
+  ],
+  "statement": "Retourner la somme partielle de la série de Leibniz multipliée par 4 :\n\n$$\\pi_n = 4 \\sum_{k=0}^{n-1} \\frac{(-1)^k}{2k+1}$$\n\n(Tolérance : $10^{-9}$.)",
+  "func": "solve",
+  "params": [
+   "n"
+  ],
+  "hint": "Le signe alterne : (-1)**k.",
+  "tol": 1e-09,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     1
+    ],
+    "expected": 4.0
+   },
+   {
+    "args": [
+     2
+    ],
+    "expected": 2.666666666666667
+   },
+   {
+    "args": [
+     10
+    ],
+    "expected": 3.0418396189294024
+   },
+   {
+    "args": [
+     1000
+    ],
+    "expected": 3.1405926538397932
+   },
+   {
+    "args": [
+     100000
+    ],
+    "expected": 3.1415826535897935
+   }
+  ],
+  "solution": "def solve(n):\n    return 4 * sum((-1) ** k / (2 * k + 1) for k in range(n))",
+  "rating": 800,
+  "starter": "def solve(n):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "palindrome-nombre",
+  "title": "Nombre palindrome",
+  "level": 1,
+  "tags": [
+   "arithmétique"
+  ],
+  "statement": "Retourner `True` si l'écriture décimale de $n \\ge 0$ se lit pareil dans les deux sens.\nEssaie de le faire **arithmétiquement** en construisant le nombre renversé.",
+  "func": "solve",
+  "params": [
+   "n"
+  ],
+  "hint": "Construis r = r*10 + dernier chiffre.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     0
+    ],
+    "expected": true
+   },
+   {
+    "args": [
+     121
+    ],
+    "expected": true
+   },
+   {
+    "args": [
+     123
+    ],
+    "expected": false
+   },
+   {
+    "args": [
+     1221
+    ],
+    "expected": true
+   },
+   {
+    "args": [
+     10
+    ],
+    "expected": false
+   },
+   {
+    "args": [
+     {
+      "$big": "12345678987654321"
+     }
+    ],
+    "expected": true
+   }
+  ],
+  "solution": "def solve(n):\n    r, m = 0, n\n    while m:\n        r = r * 10 + m % 10\n        m //= 10\n    return r == n",
+  "rating": 800,
+  "starter": "def solve(n):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "crible",
+  "title": "Crible d'Ératosthène",
+  "level": 2,
+  "tags": [
+   "nombres premiers",
+   "tableaux"
+  ],
+  "statement": "Retourner la liste triée des nombres premiers $p \\le n$.\n\nComplexité visée : $O(n \\log \\log n)$.",
+  "func": "solve",
+  "params": [
+   "n"
+  ],
+  "hint": "Pour chaque premier p, barre ses multiples à partir de p².",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     1
+    ],
+    "expected": []
+   },
+   {
+    "args": [
+     10
+    ],
+    "expected": [
+     2,
+     3,
+     5,
+     7
+    ]
+   },
+   {
+    "args": [
+     30
+    ],
+    "expected": [
+     2,
+     3,
+     5,
+     7,
+     11,
+     13,
+     17,
+     19,
+     23,
+     29
+    ]
+   },
+   {
+    "args": [
+     100
+    ],
+    "expected": [
+     2,
+     3,
+     5,
+     7,
+     11,
+     13,
+     17,
+     19,
+     23,
+     29,
+     31,
+     37,
+     41,
+     43,
+     47,
+     53,
+     59,
+     61,
+     67,
+     71,
+     73,
+     79,
+     83,
+     89,
+     97
+    ]
+   },
+   {
+    "args": [
+     2000
+    ],
+    "expected": [
+     2,
+     3,
+     5,
+     7,
+     11,
+     13,
+     17,
+     19,
+     23,
+     29,
+     31,
+     37,
+     41,
+     43,
+     47,
+     53,
+     59,
+     61,
+     67,
+     71,
+     73,
+     79,
+     83,
+     89,
+     97,
+     101,
+     103,
+     107,
+     109,
+     113,
+     127,
+     131,
+     137,
+     139,
+     149,
+     151,
+     157,
+     163,
+     167,
+     173,
+     179,
+     181,
+     191,
+     193,
+     197,
+     199,
+     211,
+     223,
+     227,
+     229,
+     233,
+     239,
+     241,
+     251,
+     257,
+     263,
+     269,
+     271,
+     277,
+     281,
+     283,
+     293,
+     307,
+     311,
+     313,
+     317,
+     331,
+     337,
+     347,
+     349,
+     353,
+     359,
+     367,
+     373,
+     379,
+     383,
+     389,
+     397,
+     401,
+     409,
+     419,
+     421,
+     431,
+     433,
+     439,
+     443,
+     449,
+     457,
+     461,
+     463,
+     467,
+     479,
+     487,
+     491,
+     499,
+     503,
+     509,
+     521,
+     523,
+     541,
+     547,
+     557,
+     563,
+     569,
+     571,
+     577,
+     587,
+     593,
+     599,
+     601,
+     607,
+     613,
+     617,
+     619,
+     631,
+     641,
+     643,
+     647,
+     653,
+     659,
+     661,
+     673,
+     677,
+     683,
+     691,
+     701,
+     709,
+     719,
+     727,
+     733,
+     739,
+     743,
+     751,
+     757,
+     761,
+     769,
+     773,
+     787,
+     797,
+     809,
+     811,
+     821,
+     823,
+     827,
+     829,
+     839,
+     853,
+     857,
+     859,
+     863,
+     877,
+     881,
+     883,
+     887,
+     907,
+     911,
+     919,
+     929,
+     937,
+     941,
+     947,
+     953,
+     967,
+     971,
+     977,
+     983,
+     991,
+     997,
+     1009,
+     1013,
+     1019,
+     1021,
+     1031,
+     1033,
+     1039,
+     1049,
+     1051,
+     1061,
+     1063,
+     1069,
+     1087,
+     1091,
+     1093,
+     1097,
+     1103,
+     1109,
+     1117,
+     1123,
+     1129,
+     1151,
+     1153,
+     1163,
+     1171,
+     1181,
+     1187,
+     1193,
+     1201,
+     1213,
+     1217,
+     1223,
+     1229,
+     1231,
+     1237,
+     1249,
+     1259,
+     1277,
+     1279,
+     1283,
+     1289,
+     1291,
+     1297,
+     1301,
+     1303,
+     1307,
+     1319,
+     1321,
+     1327,
+     1361,
+     1367,
+     1373,
+     1381,
+     1399,
+     1409,
+     1423,
+     1427,
+     1429,
+     1433,
+     1439,
+     1447,
+     1451,
+     1453,
+     1459,
+     1471,
+     1481,
+     1483,
+     1487,
+     1489,
+     1493,
+     1499,
+     1511,
+     1523,
+     1531,
+     1543,
+     1549,
+     1553,
+     1559,
+     1567,
+     1571,
+     1579,
+     1583,
+     1597,
+     1601,
+     1607,
+     1609,
+     1613,
+     1619,
+     1621,
+     1627,
+     1637,
+     1657,
+     1663,
+     1667,
+     1669,
+     1693,
+     1697,
+     1699,
+     1709,
+     1721,
+     1723,
+     1733,
+     1741,
+     1747,
+     1753,
+     1759,
+     1777,
+     1783,
+     1787,
+     1789,
+     1801,
+     1811,
+     1823,
+     1831,
+     1847,
+     1861,
+     1867,
+     1871,
+     1873,
+     1877,
+     1879,
+     1889,
+     1901,
+     1907,
+     1913,
+     1931,
+     1933,
+     1949,
+     1951,
+     1973,
+     1979,
+     1987,
+     1993,
+     1997,
+     1999
+    ]
+   }
+  ],
+  "solution": "def solve(n):\n    if n < 2:\n        return []\n    is_p = [True] * (n + 1)\n    is_p[0] = is_p[1] = False\n    i = 2\n    while i * i <= n:\n        if is_p[i]:\n            for j in range(i * i, n + 1, i):\n                is_p[j] = False\n        i += 1\n    return [i for i in range(n + 1) if is_p[i]]",
+  "rating": 1050,
+  "starter": "def solve(n):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "decomposition",
+  "title": "Décomposition en facteurs premiers",
+  "level": 2,
+  "tags": [
+   "nombres premiers"
+  ],
+  "statement": "Retourner la décomposition $n = \\prod p_i^{e_i}$ sous forme de liste\n`[[p1, e1], [p2, e2], ...]` triée par $p$ croissant ($n \\ge 2$).\n\nExemple : $360 = 2^3 \\cdot 3^2 \\cdot 5$ → `[[2, 3], [3, 2], [5, 1]]`.",
+  "func": "solve",
+  "params": [
+   "n"
+  ],
+  "hint": "Divise par d tant que possible, puis passe à d+1 ; s'arrêter à √n.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     360
+    ],
+    "expected": [
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      5,
+      1
+     ]
+    ]
+   },
+   {
+    "args": [
+     2
+    ],
+    "expected": [
+     [
+      2,
+      1
+     ]
+    ]
+   },
+   {
+    "args": [
+     97
+    ],
+    "expected": [
+     [
+      97,
+      1
+     ]
+    ]
+   },
+   {
+    "args": [
+     1024
+    ],
+    "expected": [
+     [
+      2,
+      10
+     ]
+    ]
+   },
+   {
+    "args": [
+     600851475143
+    ],
+    "expected": [
+     [
+      71,
+      1
+     ],
+     [
+      839,
+      1
+     ],
+     [
+      1471,
+      1
+     ],
+     [
+      6857,
+      1
+     ]
+    ]
+   },
+   {
+    "args": [
+     510510
+    ],
+    "expected": [
+     [
+      2,
+      1
+     ],
+     [
+      3,
+      1
+     ],
+     [
+      5,
+      1
+     ],
+     [
+      7,
+      1
+     ],
+     [
+      11,
+      1
+     ],
+     [
+      13,
+      1
+     ],
+     [
+      17,
+      1
+     ]
+    ]
+   }
+  ],
+  "solution": "def solve(n):\n    out, d = [], 2\n    while d * d <= n:\n        if n % d == 0:\n            e = 0\n            while n % d == 0:\n                n //= d\n                e += 1\n            out.append([d, e])\n        d += 1\n    if n > 1:\n        out.append([n, 1])\n    return out",
+  "rating": 1050,
+  "starter": "def solve(n):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "conversion-base",
+  "title": "Changement de base",
+  "level": 2,
+  "tags": [
+   "numération"
+  ],
+  "statement": "Écrire $n \\ge 0$ en base $b$ ($2 \\le b \\le 16$) et retourner la chaîne obtenue,\navec les chiffres `0-9` puis `A-F`.\n\n$$n = \\sum_k d_k\\, b^k, \\quad 0 \\le d_k < b$$",
+  "func": "solve",
+  "params": [
+   "n",
+   "b"
+  ],
+  "hint": "Divisions successives par b : les restes donnent les chiffres de droite à gauche.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     10,
+     2
+    ],
+    "expected": "1010"
+   },
+   {
+    "args": [
+     255,
+     16
+    ],
+    "expected": "FF"
+   },
+   {
+    "args": [
+     0,
+     7
+    ],
+    "expected": "0"
+   },
+   {
+    "args": [
+     2026,
+     3
+    ],
+    "expected": "2210001"
+   },
+   {
+    "args": [
+     123456789,
+     16
+    ],
+    "expected": "75BCD15"
+   },
+   {
+    "args": [
+     8,
+     8
+    ],
+    "expected": "10"
+   }
+  ],
+  "solution": "def solve(n, b):\n    digits = \"0123456789ABCDEF\"\n    if n == 0:\n        return \"0\"\n    s = \"\"\n    while n:\n        s = digits[n % b] + s\n        n //= b\n    return s",
+  "rating": 1050,
+  "starter": "def solve(n, b):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "collatz",
+  "title": "Conjecture de Syracuse",
+  "level": 2,
+  "tags": [
+   "suites"
+  ],
+  "statement": "Pour $n \\ge 1$, on itère $u \\mapsto u/2$ si $u$ est pair, $u \\mapsto 3u+1$ sinon.\nRetourner le **nombre d'étapes** pour atteindre $1$.",
+  "func": "solve",
+  "params": [
+   "n"
+  ],
+  "hint": "Compte les itérations dans une boucle while.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     1
+    ],
+    "expected": 0
+   },
+   {
+    "args": [
+     6
+    ],
+    "expected": 8
+   },
+   {
+    "args": [
+     7
+    ],
+    "expected": 16
+   },
+   {
+    "args": [
+     27
+    ],
+    "expected": 111
+   },
+   {
+    "args": [
+     97
+    ],
+    "expected": 118
+   },
+   {
+    "args": [
+     837799
+    ],
+    "expected": 524
+   }
+  ],
+  "solution": "def solve(n):\n    s = 0\n    while n != 1:\n        n = n // 2 if n % 2 == 0 else 3 * n + 1\n        s += 1\n    return s",
+  "rating": 1050,
+  "starter": "def solve(n):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "nombres-parfaits",
+  "title": "Nombres parfaits",
+  "level": 2,
+  "tags": [
+   "diviseurs"
+  ],
+  "statement": "Un entier est **parfait** s'il est égal à la somme de ses diviseurs propres\n(ex. $28 = 1+2+4+7+14$). Retourner la liste des nombres parfaits $\\le n$.",
+  "func": "solve",
+  "params": [
+   "n"
+  ],
+  "hint": "Les diviseurs vont par paires (d, k/d) : boucle jusqu'à √k.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     10
+    ],
+    "expected": [
+     6
+    ]
+   },
+   {
+    "args": [
+     30
+    ],
+    "expected": [
+     6,
+     28
+    ]
+   },
+   {
+    "args": [
+     500
+    ],
+    "expected": [
+     6,
+     28,
+     496
+    ]
+   },
+   {
+    "args": [
+     10000
+    ],
+    "expected": [
+     6,
+     28,
+     496,
+     8128
+    ]
+   }
+  ],
+  "solution": "def solve(n):\n    out = []\n    for k in range(2, n + 1):\n        s, d = 1, 2\n        while d * d <= k:\n            if k % d == 0:\n                s += d\n                if d != k // d:\n                    s += k // d\n            d += 1\n        if s == k:\n            out.append(k)\n    return out",
+  "rating": 1050,
+  "starter": "def solve(n):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "pascal",
+  "title": "Triangle de Pascal",
+  "level": 2,
+  "tags": [
+   "combinatoire"
+  ],
+  "statement": "Retourner la ligne $n$ du triangle de Pascal : $\\left[\\binom{n}{0}, \\binom{n}{1}, \\dots, \\binom{n}{n}\\right]$.\n\n$$\\binom{n}{k} = \\binom{n-1}{k-1} + \\binom{n-1}{k}$$",
+  "func": "solve",
+  "params": [
+   "n"
+  ],
+  "hint": "Construis chaque ligne à partir de la précédente.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     0
+    ],
+    "expected": [
+     1
+    ]
+   },
+   {
+    "args": [
+     1
+    ],
+    "expected": [
+     1,
+     1
+    ]
+   },
+   {
+    "args": [
+     4
+    ],
+    "expected": [
+     1,
+     4,
+     6,
+     4,
+     1
+    ]
+   },
+   {
+    "args": [
+     10
+    ],
+    "expected": [
+     1,
+     10,
+     45,
+     120,
+     210,
+     252,
+     210,
+     120,
+     45,
+     10,
+     1
+    ]
+   },
+   {
+    "args": [
+     30
+    ],
+    "expected": [
+     1,
+     30,
+     435,
+     4060,
+     27405,
+     142506,
+     593775,
+     2035800,
+     5852925,
+     14307150,
+     30045015,
+     54627300,
+     86493225,
+     119759850,
+     145422675,
+     155117520,
+     145422675,
+     119759850,
+     86493225,
+     54627300,
+     30045015,
+     14307150,
+     5852925,
+     2035800,
+     593775,
+     142506,
+     27405,
+     4060,
+     435,
+     30,
+     1
+    ]
+   }
+  ],
+  "solution": "def solve(n):\n    row = [1]\n    for _ in range(n):\n        row = [1] + [row[i] + row[i + 1] for i in range(len(row) - 1)] + [1]\n    return row",
+  "rating": 1050,
+  "starter": "def solve(n):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "ppcm-liste",
+  "title": "PPCM d'une liste",
+  "level": 2,
+  "tags": [
+   "arithmétique"
+  ],
+  "statement": "Retourner $\\operatorname{ppcm}(a_1, \\dots, a_k)$ pour une liste d'entiers positifs.\n\n$$\\operatorname{ppcm}(a,b) = \\frac{a\\,b}{\\gcd(a,b)}$$",
+  "func": "solve",
+  "params": [
+   "nums"
+  ],
+  "hint": "ppcm est associatif : réduis la liste deux par deux.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     [
+      4,
+      6
+     ]
+    ],
+    "expected": 12
+   },
+   {
+    "args": [
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+     ]
+    ],
+    "expected": 2520
+   },
+   {
+    "args": [
+     [
+      7
+     ]
+    ],
+    "expected": 7
+   },
+   {
+    "args": [
+     [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+     ]
+    ],
+    "expected": 232792560
+   },
+   {
+    "args": [
+     [
+      12,
+      18,
+      30
+     ]
+    ],
+    "expected": 180
+   }
+  ],
+  "solution": "def solve(nums):\n    from math import gcd\n    r = 1\n    for x in nums:\n        r = r * x // gcd(r, x)\n    return r",
+  "rating": 1050,
+  "starter": "def solve(nums):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "newton-sqrt",
+  "title": "Racine carrée par Newton",
+  "level": 2,
+  "tags": [
+   "analyse numérique"
+  ],
+  "statement": "Approcher $\\sqrt{x}$ ($x \\ge 0$) par la méthode de Newton–Raphson **sans `math.sqrt` ni `** 0.5`** :\n\n$$u_{k+1} = \\frac{1}{2}\\left(u_k + \\frac{x}{u_k}\\right)$$\n\n(Tolérance relative : $10^{-9}$.)",
+  "func": "solve",
+  "params": [
+   "x"
+  ],
+  "hint": "Commence avec u₀ = x (ou 1) et itère jusqu'à stabilisation.",
+  "tol": 1e-09,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     4
+    ],
+    "expected": 2.0
+   },
+   {
+    "args": [
+     2
+    ],
+    "expected": 1.414213562373095
+   },
+   {
+    "args": [
+     0
+    ],
+    "expected": 0.0
+   },
+   {
+    "args": [
+     0.25
+    ],
+    "expected": 0.5
+   },
+   {
+    "args": [
+     10000000000.0
+    ],
+    "expected": 100000.0
+   },
+   {
+    "args": [
+     12345.678
+    ],
+    "expected": 111.11110655555547
+   }
+  ],
+  "solution": "def solve(x):\n    if x == 0:\n        return 0.0\n    u = x if x > 1 else 1.0\n    for _ in range(200):\n        v = 0.5 * (u + x / u)\n        if abs(v - u) < 1e-15 * v:\n            break\n        u = v\n    return v",
+  "rating": 1050,
+  "starter": "def solve(x):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "derivee-polynome",
+  "title": "Dérivée d'un polynôme",
+  "level": 2,
+  "tags": [
+   "algèbre"
+  ],
+  "statement": "Un polynôme $P(x) = c_0 + c_1 x + \\dots + c_d x^d$ est représenté par `[c0, c1, ..., cd]`.\nRetourner les coefficients de $P'$ (liste `[0]` si $P$ est constant).",
+  "func": "solve",
+  "params": [
+   "coeffs"
+  ],
+  "hint": "Le coefficient de xᵏ⁻¹ dans P' est k·cₖ.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     [
+      5
+     ]
+    ],
+    "expected": [
+     0
+    ]
+   },
+   {
+    "args": [
+     [
+      1,
+      2,
+      3
+     ]
+    ],
+    "expected": [
+     2,
+     6
+    ]
+   },
+   {
+    "args": [
+     [
+      0,
+      0,
+      0,
+      4
+     ]
+    ],
+    "expected": [
+     0,
+     0,
+     12
+    ]
+   },
+   {
+    "args": [
+     [
+      3,
+      -1,
+      0,
+      2,
+      7
+     ]
+    ],
+    "expected": [
+     -1,
+     0,
+     6,
+     28
+    ]
+   }
+  ],
+  "solution": "def solve(coeffs):\n    d = [k * coeffs[k] for k in range(1, len(coeffs))]\n    return d if d else [0]",
+  "rating": 1050,
+  "starter": "def solve(coeffs):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "expo-modulaire",
+  "title": "Exponentiation rapide modulaire",
+  "level": 3,
+  "tags": [
+   "arithmétique modulaire",
+   "diviser pour régner"
+  ],
+  "statement": "Calculer $a^b \\bmod m$ en $O(\\log b)$ **sans utiliser `pow` à trois arguments**.\n\n$$a^{b} = \\begin{cases} (a^{b/2})^2 & b \\text{ pair} \\\\ a \\cdot a^{b-1} & b \\text{ impair}\\end{cases}$$",
+  "func": "solve",
+  "params": [
+   "a",
+   "b",
+   "m"
+  ],
+  "hint": "Parcours les bits de b : carré à chaque étape, multiplie quand le bit vaut 1.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     2,
+     10,
+     1000
+    ],
+    "expected": 24
+   },
+   {
+    "args": [
+     3,
+     0,
+     7
+    ],
+    "expected": 1
+   },
+   {
+    "args": [
+     7,
+     128,
+     13
+    ],
+    "expected": 3
+   },
+   {
+    "args": [
+     123456789,
+     {
+      "$big": "1000000000000000000"
+     },
+     1000000007
+    ],
+    "expected": 228100152
+   },
+   {
+    "args": [
+     5,
+     3,
+     1
+    ],
+    "expected": 0
+   }
+  ],
+  "solution": "def solve(a, b, m):\n    r, a = 1 % m, a % m\n    while b:\n        if b & 1:\n            r = r * a % m\n        a = a * a % m\n        b >>= 1\n    return r",
+  "rating": 1300,
+  "starter": "def solve(a, b, m):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "phi-euler",
+  "title": "Indicatrice d'Euler",
+  "level": 3,
+  "tags": [
+   "arithmétique modulaire",
+   "nombres premiers"
+  ],
+  "statement": "Retourner $\\varphi(n)$, le nombre d'entiers $1 \\le k \\le n$ premiers avec $n$.\n\n$$\\varphi(n) = n \\prod_{p \\mid n}\\left(1 - \\frac{1}{p}\\right)$$",
+  "func": "solve",
+  "params": [
+   "n"
+  ],
+  "hint": "Factorise n et applique la formule produit, en restant en entiers.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     1
+    ],
+    "expected": 1
+   },
+   {
+    "args": [
+     9
+    ],
+    "expected": 6
+   },
+   {
+    "args": [
+     10
+    ],
+    "expected": 4
+   },
+   {
+    "args": [
+     36
+    ],
+    "expected": 12
+   },
+   {
+    "args": [
+     97
+    ],
+    "expected": 96
+   },
+   {
+    "args": [
+     1000000
+    ],
+    "expected": 400000
+   }
+  ],
+  "solution": "def solve(n):\n    r, d = n, 2\n    while d * d <= n:\n        if n % d == 0:\n            while n % d == 0:\n                n //= d\n            r -= r // d\n        d += 1\n    if n > 1:\n        r -= r // n\n    return r",
+  "rating": 1300,
+  "starter": "def solve(n):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "simpson",
+  "title": "Intégration de Simpson",
+  "level": 3,
+  "tags": [
+   "analyse numérique",
+   "polynômes"
+  ],
+  "statement": "Approcher $\\int_a^b P(x)\\,dx$ par la méthode de Simpson composite avec $n$ sous-intervalles ($n$ pair),\noù $P$ est donné par ses coefficients `[c0, c1, ...]`.\n\n$$\\int_a^b f \\approx \\frac{h}{3}\\Big[f(x_0) + 4\\!\\!\\sum_{i \\text{ impair}}\\! f(x_i) + 2\\!\\!\\sum_{i \\text{ pair}}\\! f(x_i) + f(x_n)\\Big]$$\n\n(Tolérance : $10^{-6}$.)",
+  "func": "solve",
+  "params": [
+   "coeffs",
+   "a",
+   "b",
+   "n"
+  ],
+  "hint": "Évalue P avec Horner ou une somme, puis applique les poids 1-4-2-4-…-4-1.",
+  "tol": 1e-06,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     [
+      0,
+      0,
+      1
+     ],
+     0,
+     3,
+     10
+    ],
+    "expected": 9.0
+   },
+   {
+    "args": [
+     [
+      1
+     ],
+     0,
+     1,
+     2
+    ],
+    "expected": 1.0
+   },
+   {
+    "args": [
+     [
+      0,
+      0,
+      0,
+      0,
+      1
+     ],
+     -1,
+     2,
+     100
+    ],
+    "expected": 6.600000323999999
+   },
+   {
+    "args": [
+     [
+      2,
+      -3,
+      0,
+      1,
+      0,
+      1
+     ],
+     0,
+     1,
+     1000
+    ],
+    "expected": 0.9166666666669987
+   }
+  ],
+  "solution": "def solve(coeffs, a, b, n):\n    f = lambda x: sum(c * x ** k for k, c in enumerate(coeffs))\n    h = (b - a) / n\n    s = f(a) + f(b)\n    for i in range(1, n):\n        s += (4 if i % 2 else 2) * f(a + i * h)\n    return s * h / 3",
+  "rating": 1300,
+  "starter": "def solve(coeffs, a, b, n):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "produit-matrices",
+  "title": "Produit matriciel",
+  "level": 3,
+  "tags": [
+   "algèbre linéaire"
+  ],
+  "statement": "Retourner $C = A B$ pour $A \\in \\mathcal{M}_{n,p}$ et $B \\in \\mathcal{M}_{p,q}$ (listes de listes).\n\n$$C_{ij} = \\sum_{k=1}^{p} A_{ik} B_{kj}$$",
+  "func": "solve",
+  "params": [
+   "A",
+   "B"
+  ],
+  "hint": "Trois boucles imbriquées : i, j, puis k pour la somme.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     [
+      [
+       1,
+       2
+      ],
+      [
+       3,
+       4
+      ]
+     ],
+     [
+      [
+       5,
+       6
+      ],
+      [
+       7,
+       8
+      ]
+     ]
+    ],
+    "expected": [
+     [
+      19,
+      22
+     ],
+     [
+      43,
+      50
+     ]
+    ]
+   },
+   {
+    "args": [
+     [
+      [
+       1,
+       0,
+       2
+      ]
+     ],
+     [
+      [
+       1
+      ],
+      [
+       2
+      ],
+      [
+       3
+      ]
+     ]
+    ],
+    "expected": [
+     [
+      7
+     ]
+    ]
+   },
+   {
+    "args": [
+     [
+      [
+       2
+      ]
+     ],
+     [
+      [
+       3
+      ]
+     ]
+    ],
+    "expected": [
+     [
+      6
+     ]
+    ]
+   },
+   {
+    "args": [
+     [
+      [
+       1,
+       2,
+       3
+      ],
+      [
+       4,
+       5,
+       6
+      ]
+     ],
+     [
+      [
+       7,
+       8
+      ],
+      [
+       9,
+       10
+      ],
+      [
+       11,
+       12
+      ]
+     ]
+    ],
+    "expected": [
+     [
+      58,
+      64
+     ],
+     [
+      139,
+      154
+     ]
+    ]
+   }
+  ],
+  "solution": "def solve(A, B):\n    return [[sum(A[i][k] * B[k][j] for k in range(len(B))) for j in range(len(B[0]))] for i in range(len(A))]",
+  "rating": 1300,
+  "starter": "def solve(A, B):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "determinant",
+  "title": "Déterminant exact",
+  "level": 3,
+  "tags": [
+   "algèbre linéaire"
+  ],
+  "statement": "Retourner $\\det(M)$ pour une matrice carrée à coefficients **entiers**. Le résultat doit être un entier exact.\n\nLe développement de Laplace est en $O(n!)$ ; vise le pivot de Gauss (avec `fractions.Fraction`)\nou l'algorithme de Bareiss en $O(n^3)$.",
+  "func": "solve",
+  "params": [
+   "M"
+  ],
+  "hint": "Triangule la matrice ; le déterminant est le produit des pivots (attention aux échanges de lignes).",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     [
+      [
+       3
+      ]
+     ]
+    ],
+    "expected": 3
+   },
+   {
+    "args": [
+     [
+      [
+       1,
+       2
+      ],
+      [
+       3,
+       4
+      ]
+     ]
+    ],
+    "expected": -2
+   },
+   {
+    "args": [
+     [
+      [
+       2,
+       0,
+       1
+      ],
+      [
+       1,
+       3,
+       2
+      ],
+      [
+       1,
+       1,
+       1
+      ]
+     ]
+    ],
+    "expected": 0
+   },
+   {
+    "args": [
+     [
+      [
+       1,
+       2,
+       3
+      ],
+      [
+       4,
+       5,
+       6
+      ],
+      [
+       7,
+       8,
+       9
+      ]
+     ]
+    ],
+    "expected": 0
+   },
+   {
+    "args": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       0
+      ]
+     ]
+    ],
+    "expected": -1
+   },
+   {
+    "args": [
+     [
+      [
+       1,
+       1,
+       1,
+       1,
+       1,
+       1
+      ],
+      [
+       1,
+       2,
+       4,
+       8,
+       16,
+       32
+      ],
+      [
+       1,
+       3,
+       9,
+       27,
+       81,
+       243
+      ],
+      [
+       1,
+       4,
+       16,
+       64,
+       256,
+       1024
+      ],
+      [
+       1,
+       5,
+       25,
+       125,
+       625,
+       3125
+      ],
+      [
+       1,
+       6,
+       36,
+       216,
+       1296,
+       7776
+      ]
+     ]
+    ],
+    "expected": 34560
+   }
+  ],
+  "solution": "def solve(M):\n    from fractions import Fraction\n    A = [[Fraction(x) for x in row] for row in M]\n    n, det = len(A), Fraction(1)\n    for c in range(n):\n        p = next((r for r in range(c, n) if A[r][c] != 0), None)\n        if p is None:\n            return 0\n        if p != c:\n            A[c], A[p] = A[p], A[c]\n            det = -det\n        det *= A[c][c]\n        for r in range(c + 1, n):\n            f = A[r][c] / A[c][c]\n            for k in range(c, n):\n                A[r][k] -= f * A[c][k]\n    return int(det)",
+  "rating": 1300,
+  "starter": "def solve(M):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "inverse-modulaire",
+  "title": "Inverse modulaire",
+  "level": 3,
+  "tags": [
+   "arithmétique modulaire"
+  ],
+  "statement": "Retourner l'unique $x \\in [0, m)$ tel que $a x \\equiv 1 \\pmod m$, ou $-1$ s'il n'existe pas.\n\nUtilise l'algorithme d'Euclide étendu : trouve $u, v$ tels que $au + mv = \\gcd(a, m)$.",
+  "func": "solve",
+  "params": [
+   "a",
+   "m"
+  ],
+  "hint": "L'inverse existe ssi gcd(a, m) = 1 ; c'est alors le coefficient u de Bézout.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     3,
+     11
+    ],
+    "expected": 4
+   },
+   {
+    "args": [
+     10,
+     17
+    ],
+    "expected": 12
+   },
+   {
+    "args": [
+     6,
+     9
+    ],
+    "expected": -1
+   },
+   {
+    "args": [
+     1,
+     1
+    ],
+    "expected": 0
+   },
+   {
+    "args": [
+     123456789,
+     1000000007
+    ],
+    "expected": 18633540
+   },
+   {
+    "args": [
+     42,
+     2017
+    ],
+    "expected": 1969
+   }
+  ],
+  "solution": "def solve(a, m):\n    r0, r1, u0, u1 = a % m, m, 1, 0\n    while r1:\n        q = r0 // r1\n        r0, r1 = r1, r0 - q * r1\n        u0, u1 = u1, u0 - q * u1\n    return u0 % m if r0 == 1 else -1",
+  "rating": 1300,
+  "starter": "def solve(a, m):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "racine-polynome",
+  "title": "Newton–Raphson sur un polynôme",
+  "level": 3,
+  "tags": [
+   "analyse numérique",
+   "polynômes"
+  ],
+  "statement": "Partant de $x_0$, appliquer Newton–Raphson à $P$ (coefficients `[c0, c1, ...]`) :\n\n$$x_{k+1} = x_k - \\frac{P(x_k)}{P'(x_k)}$$\n\njusqu'à $|x_{k+1} - x_k| < 10^{-12}$ (au plus 100 itérations) et retourner la racine trouvée.\n(Tolérance : $10^{-6}$.)",
+  "func": "solve",
+  "params": [
+   "coeffs",
+   "x0"
+  ],
+  "hint": "Code P et P' séparément (ou avec Horner) et itère.",
+  "tol": 1e-06,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     [
+      -2,
+      0,
+      1
+     ],
+     1.0
+    ],
+    "expected": 1.414213562373095
+   },
+   {
+    "args": [
+     [
+      -2,
+      0,
+      1
+     ],
+     -3.0
+    ],
+    "expected": -1.414213562373095
+   },
+   {
+    "args": [
+     [
+      -1,
+      -1,
+      1
+     ],
+     2.0
+    ],
+    "expected": 1.618033988749895
+   },
+   {
+    "args": [
+     [
+      -6,
+      11,
+      -6,
+      1
+     ],
+     3.6
+    ],
+    "expected": 3.000000000000004
+   },
+   {
+    "args": [
+     [
+      -5,
+      0,
+      0,
+      1
+     ],
+     2.0
+    ],
+    "expected": 1.709975946676697
+   }
+  ],
+  "solution": "def solve(coeffs, x0):\n    P = lambda x: sum(c * x ** k for k, c in enumerate(coeffs))\n    dP = lambda x: sum(k * c * x ** (k - 1) for k, c in enumerate(coeffs) if k)\n    x = x0\n    for _ in range(100):\n        nx = x - P(x) / dP(x)\n        if abs(nx - x) < 1e-12:\n            return nx\n        x = nx\n    return x",
+  "rating": 1300,
+  "starter": "def solve(coeffs, x0):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "nombres-amicaux",
+  "title": "Nombres amicaux",
+  "level": 3,
+  "tags": [
+   "diviseurs"
+  ],
+  "statement": "Soit $d(n)$ la somme des diviseurs propres de $n$. Si $d(a) = b$, $d(b) = a$ et $a \\ne b$, alors $a$ et $b$\nsont **amicaux** (ex. $220$ et $284$). Retourner la somme de tous les nombres amicaux $< n$.",
+  "func": "solve",
+  "params": [
+   "n"
+  ],
+  "hint": "Pré-calcule d(k) pour tous les k avec un crible additif.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     300
+    ],
+    "expected": 504
+   },
+   {
+    "args": [
+     1000
+    ],
+    "expected": 504
+   },
+   {
+    "args": [
+     10000
+    ],
+    "expected": 31626
+   },
+   {
+    "args": [
+     20000
+    ],
+    "expected": 115818
+   }
+  ],
+  "solution": "def solve(n):\n    N = max(n, 2) * 4\n    d = [0] * N\n    for i in range(1, N):\n        for j in range(2 * i, N, i):\n            d[j] += i\n    tot = 0\n    for a in range(2, n):\n        b = d[a]\n        if b != a and b < N and d[b] == a:\n            tot += a\n    return tot",
+  "rating": 1300,
+  "starter": "def solve(n):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "fibonacci-matrice",
+  "title": "Fibonacci en O(log n)",
+  "level": 4,
+  "tags": [
+   "algèbre linéaire",
+   "arithmétique modulaire"
+  ],
+  "statement": "Retourner $F_n \\bmod m$ pour $n$ pouvant aller jusqu'à $10^{18}$.\n\n$$\\begin{pmatrix}1 & 1\\\\ 1 & 0\\end{pmatrix}^{n} = \\begin{pmatrix}F_{n+1} & F_n\\\\ F_n & F_{n-1}\\end{pmatrix}$$",
+  "func": "solve",
+  "params": [
+   "n",
+   "m"
+  ],
+  "hint": "Exponentiation rapide… mais sur des matrices 2×2.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     10,
+     1000
+    ],
+    "expected": 55
+   },
+   {
+    "args": [
+     0,
+     7
+    ],
+    "expected": 0
+   },
+   {
+    "args": [
+     1,
+     7
+    ],
+    "expected": 1
+   },
+   {
+    "args": [
+     100,
+     1000000007
+    ],
+    "expected": 687995182
+   },
+   {
+    "args": [
+     {
+      "$big": "1000000000000000000"
+     },
+     1000000007
+    ],
+    "expected": 209783453
+   },
+   {
+    "args": [
+     2026,
+     1
+    ],
+    "expected": 0
+   }
+  ],
+  "solution": "def solve(n, m):\n    def mul(X, Y):\n        return [[(X[0][0]*Y[0][0] + X[0][1]*Y[1][0]) % m, (X[0][0]*Y[0][1] + X[0][1]*Y[1][1]) % m],\n                [(X[1][0]*Y[0][0] + X[1][1]*Y[1][0]) % m, (X[1][0]*Y[0][1] + X[1][1]*Y[1][1]) % m]]\n    R, M = [[1, 0], [0, 1]], [[1, 1], [1, 0]]\n    while n:\n        if n & 1:\n            R = mul(R, M)\n        M = mul(M, M)\n        n >>= 1\n    return R[0][1] % m",
+  "rating": 1550,
+  "starter": "def solve(n, m):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "partitions",
+  "title": "Partitions d'un entier",
+  "level": 4,
+  "tags": [
+   "combinatoire",
+   "programmation dynamique"
+  ],
+  "statement": "Retourner $p(n)$, le nombre de façons d'écrire $n$ comme somme d'entiers positifs (sans tenir compte de l'ordre).\nEx. $p(4) = 5$ : $4,\\ 3{+}1,\\ 2{+}2,\\ 2{+}1{+}1,\\ 1{+}1{+}1{+}1$.",
+  "func": "solve",
+  "params": [
+   "n"
+  ],
+  "hint": "DP : p[s] += p[s − k] pour chaque taille de part k (comme un rendu de monnaie).",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     1
+    ],
+    "expected": 1
+   },
+   {
+    "args": [
+     4
+    ],
+    "expected": 5
+   },
+   {
+    "args": [
+     5
+    ],
+    "expected": 7
+   },
+   {
+    "args": [
+     10
+    ],
+    "expected": 42
+   },
+   {
+    "args": [
+     100
+    ],
+    "expected": 190569292
+   },
+   {
+    "args": [
+     500
+    ],
+    "expected": {
+     "$big": "2300165032574323995027"
+    }
+   }
+  ],
+  "solution": "def solve(n):\n    p = [1] + [0] * n\n    for k in range(1, n + 1):\n        for s in range(k, n + 1):\n            p[s] += p[s - k]\n    return p[n]",
+  "rating": 1550,
+  "starter": "def solve(n):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "chemins-grille",
+  "title": "Chemins dans une grille",
+  "level": 4,
+  "tags": [
+   "combinatoire",
+   "programmation dynamique"
+  ],
+  "statement": "Une grille est donnée par une liste de lignes de `0` (libre) et `1` (obstacle).\nCompter les chemins du coin haut-gauche au coin bas-droite en ne se déplaçant **qu'à droite ou en bas**.\n\nSans obstacle, la réponse est $\\binom{h+w-2}{h-1}$.",
+  "func": "solve",
+  "params": [
+   "grid"
+  ],
+  "hint": "dp[i][j] = dp[i−1][j] + dp[i][j−1], et 0 sur un obstacle.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       0
+      ]
+     ]
+    ],
+    "expected": 2
+   },
+   {
+    "args": [
+     [
+      [
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       1,
+       0
+      ],
+      [
+       0,
+       0,
+       0
+      ]
+     ]
+    ],
+    "expected": 2
+   },
+   {
+    "args": [
+     [
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     ]
+    ],
+    "expected": 48620
+   },
+   {
+    "args": [
+     [
+      [
+       1
+      ]
+     ]
+    ],
+    "expected": 0
+   },
+   {
+    "args": [
+     [
+      [
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       1,
+       1,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       1,
+       0,
+       1,
+       0
+      ]
+     ]
+    ],
+    "expected": 2
+   },
+   {
+    "args": [
+     [
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ],
+      [
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0,
+       0
+      ]
+     ]
+    ],
+    "expected": 2333606220
+   }
+  ],
+  "solution": "def solve(grid):\n    h, w = len(grid), len(grid[0])\n    dp = [[0] * w for _ in range(h)]\n    for i in range(h):\n        for j in range(w):\n            if grid[i][j]:\n                continue\n            if i == 0 and j == 0:\n                dp[i][j] = 1\n            else:\n                dp[i][j] = (dp[i-1][j] if i else 0) + (dp[i][j-1] if j else 0)\n    return dp[-1][-1]",
+  "rating": 1550,
+  "starter": "def solve(grid):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "lis",
+  "title": "Plus longue sous-suite croissante",
+  "level": 4,
+  "tags": [
+   "programmation dynamique"
+  ],
+  "statement": "Retourner la longueur de la plus longue sous-suite **strictement croissante** de `nums`.\n\n$O(n^2)$ passe, mais $O(n \\log n)$ (patience sorting + recherche dichotomique) est l'objectif.",
+  "func": "solve",
+  "params": [
+   "nums"
+  ],
+  "hint": "tails[k] = plus petite fin possible d'une sous-suite de longueur k+1.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     [
+      10,
+      9,
+      2,
+      5,
+      3,
+      7,
+      101,
+      18
+     ]
+    ],
+    "expected": 4
+   },
+   {
+    "args": [
+     []
+    ],
+    "expected": 0
+   },
+   {
+    "args": [
+     [
+      5,
+      5,
+      5
+     ]
+    ],
+    "expected": 1
+   },
+   {
+    "args": [
+     [
+      1,
+      2,
+      3,
+      4
+     ]
+    ],
+    "expected": 4
+   },
+   {
+    "args": [
+     [
+      0,
+      856,
+      703,
+      550,
+      397,
+      244,
+      91,
+      947,
+      794,
+      641,
+      488,
+      335,
+      182,
+      29,
+      885,
+      732,
+      579,
+      426,
+      273,
+      120,
+      976,
+      823,
+      670,
+      517,
+      364,
+      211,
+      58,
+      914,
+      761,
+      608,
+      455,
+      302,
+      149,
+      1005,
+      852,
+      699,
+      546,
+      393,
+      240,
+      87,
+      943,
+      790,
+      637,
+      484,
+      331,
+      178,
+      25,
+      881,
+      728,
+      575,
+      422,
+      269,
+      116,
+      972,
+      819,
+      666,
+      513,
+      360,
+      207,
+      54,
+      910,
+      757,
+      604,
+      451,
+      298,
+      145,
+      1001,
+      848,
+      695,
+      542,
+      389,
+      236,
+      83,
+      939,
+      786,
+      633,
+      480,
+      327,
+      174,
+      21,
+      877,
+      724,
+      571,
+      418,
+      265,
+      112,
+      968,
+      815,
+      662,
+      509,
+      356,
+      203,
+      50,
+      906,
+      753,
+      600,
+      447,
+      294,
+      141,
+      997,
+      844,
+      691,
+      538,
+      385,
+      232,
+      79,
+      935,
+      782,
+      629,
+      476,
+      323,
+      170,
+      17,
+      873,
+      720,
+      567,
+      414,
+      261,
+      108,
+      964,
+      811,
+      658,
+      505,
+      352,
+      199,
+      46,
+      902,
+      749,
+      596,
+      443,
+      290,
+      137,
+      993,
+      840,
+      687,
+      534,
+      381,
+      228,
+      75,
+      931,
+      778,
+      625,
+      472,
+      319,
+      166,
+      13,
+      869,
+      716,
+      563,
+      410,
+      257,
+      104,
+      960,
+      807,
+      654,
+      501,
+      348,
+      195,
+      42,
+      898,
+      745,
+      592,
+      439,
+      286,
+      133,
+      989,
+      836,
+      683,
+      530,
+      377,
+      224,
+      71,
+      927,
+      774,
+      621,
+      468,
+      315,
+      162,
+      9,
+      865,
+      712,
+      559,
+      406,
+      253,
+      100,
+      956,
+      803,
+      650,
+      497,
+      344,
+      191,
+      38,
+      894,
+      741,
+      588,
+      435,
+      282,
+      129,
+      985,
+      832,
+      679,
+      526,
+      373,
+      220,
+      67,
+      923,
+      770,
+      617,
+      464,
+      311,
+      158,
+      5,
+      861,
+      708,
+      555,
+      402,
+      249,
+      96,
+      952,
+      799,
+      646,
+      493,
+      340,
+      187,
+      34,
+      890,
+      737,
+      584,
+      431,
+      278,
+      125,
+      981,
+      828,
+      675,
+      522,
+      369,
+      216,
+      63,
+      919,
+      766,
+      613,
+      460,
+      307,
+      154,
+      1,
+      857,
+      704,
+      551,
+      398,
+      245,
+      92,
+      948,
+      795,
+      642,
+      489,
+      336,
+      183,
+      30,
+      886,
+      733,
+      580,
+      427,
+      274,
+      121,
+      977,
+      824,
+      671,
+      518,
+      365,
+      212,
+      59,
+      915,
+      762,
+      609,
+      456,
+      303,
+      150,
+      1006,
+      853,
+      700,
+      547,
+      394,
+      241,
+      88,
+      944,
+      791,
+      638,
+      485,
+      332,
+      179,
+      26,
+      882,
+      729,
+      576,
+      423,
+      270,
+      117,
+      973,
+      820,
+      667,
+      514,
+      361,
+      208,
+      55,
+      911,
+      758,
+      605,
+      452,
+      299,
+      146,
+      1002,
+      849,
+      696,
+      543,
+      390,
+      237,
+      84,
+      940,
+      787,
+      634,
+      481,
+      328,
+      175,
+      22,
+      878,
+      725,
+      572,
+      419,
+      266,
+      113,
+      969,
+      816,
+      663,
+      510,
+      357,
+      204,
+      51,
+      907,
+      754,
+      601,
+      448,
+      295,
+      142,
+      998,
+      845,
+      692,
+      539,
+      386,
+      233,
+      80,
+      936,
+      783,
+      630,
+      477,
+      324,
+      171,
+      18,
+      874,
+      721,
+      568,
+      415,
+      262,
+      109,
+      965,
+      812,
+      659,
+      506,
+      353,
+      200,
+      47,
+      903,
+      750,
+      597,
+      444,
+      291,
+      138,
+      994,
+      841,
+      688,
+      535,
+      382,
+      229,
+      76,
+      932,
+      779,
+      626,
+      473,
+      320,
+      167,
+      14,
+      870,
+      717,
+      564,
+      411,
+      258,
+      105,
+      961,
+      808,
+      655,
+      502,
+      349,
+      196,
+      43,
+      899,
+      746,
+      593,
+      440,
+      287,
+      134,
+      990,
+      837,
+      684,
+      531,
+      378,
+      225,
+      72,
+      928,
+      775,
+      622,
+      469,
+      316,
+      163,
+      10,
+      866,
+      713,
+      560,
+      407,
+      254,
+      101,
+      957,
+      804,
+      651,
+      498,
+      345,
+      192,
+      39,
+      895,
+      742,
+      589,
+      436,
+      283,
+      130,
+      986,
+      833,
+      680,
+      527,
+      374,
+      221,
+      68,
+      924,
+      771,
+      618,
+      465,
+      312,
+      159,
+      6,
+      862,
+      709,
+      556,
+      403,
+      250,
+      97,
+      953,
+      800,
+      647,
+      494,
+      341,
+      188,
+      35,
+      891,
+      738,
+      585,
+      432,
+      279,
+      126,
+      982,
+      829,
+      676,
+      523,
+      370,
+      217,
+      64,
+      920,
+      767,
+      614,
+      461,
+      308,
+      155,
+      2,
+      858,
+      705,
+      552,
+      399,
+      246,
+      93,
+      949,
+      796,
+      643,
+      490,
+      337,
+      184,
+      31,
+      887,
+      734,
+      581,
+      428,
+      275,
+      122,
+      978,
+      825,
+      672,
+      519,
+      366,
+      213,
+      60,
+      916,
+      763,
+      610,
+      457,
+      304,
+      151,
+      1007,
+      854,
+      701,
+      548,
+      395,
+      242,
+      89,
+      945,
+      792,
+      639,
+      486,
+      333,
+      180,
+      27,
+      883,
+      730,
+      577,
+      424,
+      271,
+      118,
+      974,
+      821,
+      668,
+      515,
+      362,
+      209,
+      56,
+      912,
+      759,
+      606,
+      453,
+      300,
+      147,
+      1003,
+      850,
+      697,
+      544,
+      391,
+      238,
+      85,
+      941,
+      788,
+      635,
+      482,
+      329,
+      176,
+      23,
+      879,
+      726,
+      573,
+      420,
+      267,
+      114,
+      970,
+      817,
+      664,
+      511,
+      358,
+      205,
+      52,
+      908,
+      755,
+      602,
+      449,
+      296,
+      143,
+      999,
+      846,
+      693,
+      540,
+      387,
+      234,
+      81,
+      937,
+      784,
+      631,
+      478,
+      325,
+      172,
+      19,
+      875,
+      722,
+      569,
+      416,
+      263,
+      110,
+      966,
+      813,
+      660,
+      507,
+      354,
+      201,
+      48,
+      904,
+      751,
+      598,
+      445,
+      292,
+      139,
+      995,
+      842,
+      689,
+      536,
+      383,
+      230,
+      77,
+      933,
+      780,
+      627,
+      474,
+      321,
+      168,
+      15,
+      871,
+      718,
+      565,
+      412,
+      259,
+      106,
+      962,
+      809,
+      656,
+      503,
+      350,
+      197,
+      44,
+      900,
+      747,
+      594,
+      441,
+      288,
+      135,
+      991,
+      838,
+      685,
+      532,
+      379,
+      226,
+      73,
+      929,
+      776,
+      623,
+      470,
+      317,
+      164,
+      11,
+      867,
+      714,
+      561,
+      408,
+      255,
+      102,
+      958,
+      805,
+      652,
+      499,
+      346,
+      193,
+      40,
+      896,
+      743,
+      590,
+      437,
+      284,
+      131,
+      987,
+      834,
+      681,
+      528,
+      375,
+      222,
+      69,
+      925,
+      772,
+      619,
+      466,
+      313,
+      160,
+      7,
+      863,
+      710,
+      557,
+      404,
+      251,
+      98,
+      954,
+      801,
+      648,
+      495,
+      342,
+      189,
+      36,
+      892,
+      739,
+      586,
+      433,
+      280,
+      127,
+      983,
+      830,
+      677,
+      524,
+      371,
+      218,
+      65,
+      921,
+      768,
+      615,
+      462,
+      309,
+      156,
+      3,
+      859,
+      706,
+      553,
+      400,
+      247,
+      94,
+      950,
+      797,
+      644,
+      491,
+      338,
+      185,
+      32,
+      888,
+      735,
+      582,
+      429,
+      276,
+      123,
+      979,
+      826,
+      673,
+      520,
+      367,
+      214,
+      61,
+      917,
+      764,
+      611,
+      458,
+      305,
+      152,
+      1008,
+      855,
+      702,
+      549,
+      396,
+      243,
+      90,
+      946,
+      793,
+      640,
+      487,
+      334,
+      181,
+      28,
+      884,
+      731,
+      578,
+      425,
+      272,
+      119,
+      975,
+      822,
+      669,
+      516,
+      363,
+      210,
+      57,
+      913,
+      760,
+      607,
+      454,
+      301,
+      148,
+      1004,
+      851,
+      698,
+      545,
+      392,
+      239,
+      86,
+      942,
+      789,
+      636,
+      483,
+      330,
+      177,
+      24,
+      880,
+      727,
+      574,
+      421,
+      268,
+      115,
+      971,
+      818,
+      665,
+      512,
+      359,
+      206,
+      53,
+      909,
+      756,
+      603,
+      450,
+      297,
+      144,
+      1000,
+      847,
+      694,
+      541,
+      388,
+      235,
+      82,
+      938,
+      785,
+      632,
+      479,
+      326,
+      173,
+      20,
+      876,
+      723,
+      570,
+      417,
+      264,
+      111,
+      967,
+      814,
+      661,
+      508,
+      355,
+      202,
+      49,
+      905,
+      752,
+      599,
+      446,
+      293,
+      140,
+      996,
+      843,
+      690,
+      537,
+      384,
+      231,
+      78,
+      934,
+      781,
+      628,
+      475,
+      322,
+      169,
+      16,
+      872,
+      719,
+      566,
+      413,
+      260,
+      107,
+      963,
+      810,
+      657,
+      504,
+      351,
+      198,
+      45,
+      901,
+      748,
+      595,
+      442,
+      289,
+      136,
+      992,
+      839,
+      686,
+      533,
+      380,
+      227,
+      74,
+      930,
+      777,
+      624,
+      471,
+      318,
+      165,
+      12,
+      868,
+      715,
+      562,
+      409,
+      256,
+      103,
+      959,
+      806,
+      653,
+      500,
+      347,
+      194,
+      41,
+      897,
+      744,
+      591,
+      438,
+      285,
+      132,
+      988,
+      835,
+      682,
+      529,
+      376,
+      223,
+      70,
+      926,
+      773,
+      620,
+      467,
+      314,
+      161,
+      8,
+      864,
+      711,
+      558,
+      405,
+      252,
+      99,
+      955,
+      802,
+      649,
+      496,
+      343,
+      190,
+      37,
+      893,
+      740,
+      587,
+      434,
+      281,
+      128,
+      984,
+      831,
+      678,
+      525,
+      372,
+      219,
+      66,
+      922,
+      769,
+      616,
+      463,
+      310,
+      157,
+      4,
+      860,
+      707,
+      554,
+      401,
+      248,
+      95,
+      951,
+      798,
+      645,
+      492,
+      339,
+      186,
+      33,
+      889,
+      736,
+      583,
+      430,
+      277,
+      124,
+      980,
+      827,
+      674,
+      521,
+      368,
+      215,
+      62,
+      918,
+      765,
+      612,
+      459,
+      306,
+      153,
+      0,
+      856,
+      703,
+      550,
+      397,
+      244,
+      91,
+      947,
+      794,
+      641,
+      488,
+      335,
+      182,
+      29,
+      885,
+      732,
+      579,
+      426,
+      273,
+      120,
+      976,
+      823,
+      670,
+      517,
+      364,
+      211,
+      58,
+      914,
+      761,
+      608,
+      455,
+      302,
+      149,
+      1005,
+      852,
+      699,
+      546,
+      393,
+      240,
+      87,
+      943,
+      790,
+      637,
+      484,
+      331,
+      178,
+      25,
+      881,
+      728,
+      575,
+      422,
+      269,
+      116,
+      972,
+      819,
+      666,
+      513,
+      360,
+      207,
+      54,
+      910,
+      757,
+      604,
+      451,
+      298,
+      145,
+      1001,
+      848,
+      695,
+      542,
+      389,
+      236,
+      83,
+      939,
+      786,
+      633,
+      480,
+      327,
+      174,
+      21,
+      877,
+      724,
+      571,
+      418,
+      265,
+      112,
+      968,
+      815,
+      662,
+      509,
+      356,
+      203,
+      50,
+      906,
+      753,
+      600,
+      447,
+      294,
+      141,
+      997,
+      844,
+      691,
+      538,
+      385,
+      232,
+      79,
+      935,
+      782,
+      629,
+      476,
+      323,
+      170,
+      17,
+      873,
+      720,
+      567,
+      414,
+      261,
+      108,
+      964,
+      811,
+      658,
+      505,
+      352,
+      199,
+      46,
+      902,
+      749,
+      596,
+      443,
+      290,
+      137,
+      993,
+      840,
+      687,
+      534,
+      381,
+      228,
+      75,
+      931,
+      778,
+      625,
+      472,
+      319,
+      166,
+      13,
+      869,
+      716,
+      563,
+      410,
+      257,
+      104,
+      960,
+      807,
+      654,
+      501,
+      348,
+      195,
+      42,
+      898,
+      745,
+      592,
+      439,
+      286,
+      133,
+      989,
+      836,
+      683,
+      530,
+      377,
+      224,
+      71,
+      927,
+      774,
+      621,
+      468,
+      315,
+      162,
+      9,
+      865,
+      712,
+      559,
+      406,
+      253,
+      100,
+      956,
+      803,
+      650,
+      497,
+      344,
+      191,
+      38,
+      894,
+      741,
+      588,
+      435,
+      282,
+      129,
+      985,
+      832,
+      679,
+      526,
+      373,
+      220,
+      67,
+      923,
+      770,
+      617,
+      464,
+      311,
+      158,
+      5,
+      861,
+      708,
+      555,
+      402,
+      249,
+      96,
+      952,
+      799,
+      646,
+      493,
+      340,
+      187,
+      34,
+      890,
+      737,
+      584,
+      431,
+      278,
+      125,
+      981,
+      828,
+      675,
+      522,
+      369,
+      216,
+      63,
+      919,
+      766,
+      613,
+      460,
+      307,
+      154,
+      1,
+      857,
+      704,
+      551,
+      398,
+      245,
+      92,
+      948,
+      795,
+      642,
+      489,
+      336,
+      183,
+      30,
+      886,
+      733,
+      580,
+      427,
+      274,
+      121,
+      977,
+      824,
+      671,
+      518,
+      365,
+      212,
+      59,
+      915,
+      762,
+      609,
+      456,
+      303,
+      150,
+      1006,
+      853,
+      700,
+      547,
+      394,
+      241,
+      88,
+      944,
+      791,
+      638,
+      485,
+      332,
+      179,
+      26,
+      882,
+      729,
+      576,
+      423,
+      270,
+      117,
+      973,
+      820,
+      667,
+      514,
+      361,
+      208,
+      55,
+      911,
+      758,
+      605,
+      452,
+      299,
+      146,
+      1002,
+      849,
+      696,
+      543,
+      390,
+      237,
+      84,
+      940,
+      787,
+      634,
+      481,
+      328,
+      175,
+      22,
+      878,
+      725,
+      572,
+      419,
+      266,
+      113,
+      969,
+      816,
+      663,
+      510,
+      357,
+      204,
+      51,
+      907,
+      754,
+      601,
+      448,
+      295,
+      142,
+      998,
+      845,
+      692,
+      539,
+      386,
+      233,
+      80,
+      936,
+      783,
+      630,
+      477,
+      324,
+      171,
+      18,
+      874,
+      721,
+      568,
+      415,
+      262,
+      109,
+      965,
+      812,
+      659,
+      506,
+      353,
+      200,
+      47,
+      903,
+      750,
+      597,
+      444,
+      291,
+      138,
+      994,
+      841,
+      688,
+      535,
+      382,
+      229,
+      76,
+      932,
+      779,
+      626,
+      473,
+      320,
+      167,
+      14,
+      870,
+      717,
+      564,
+      411,
+      258,
+      105,
+      961,
+      808,
+      655,
+      502,
+      349,
+      196,
+      43,
+      899,
+      746,
+      593,
+      440,
+      287,
+      134,
+      990,
+      837,
+      684,
+      531,
+      378,
+      225,
+      72,
+      928,
+      775,
+      622,
+      469,
+      316,
+      163,
+      10,
+      866,
+      713,
+      560,
+      407,
+      254,
+      101,
+      957,
+      804,
+      651,
+      498,
+      345,
+      192,
+      39,
+      895,
+      742,
+      589,
+      436,
+      283,
+      130,
+      986,
+      833,
+      680,
+      527,
+      374,
+      221,
+      68,
+      924,
+      771,
+      618,
+      465,
+      312,
+      159,
+      6,
+      862,
+      709,
+      556,
+      403,
+      250,
+      97,
+      953,
+      800,
+      647,
+      494,
+      341,
+      188,
+      35,
+      891,
+      738,
+      585,
+      432,
+      279,
+      126,
+      982,
+      829,
+      676,
+      523,
+      370,
+      217,
+      64,
+      920,
+      767,
+      614,
+      461,
+      308,
+      155,
+      2,
+      858,
+      705,
+      552,
+      399,
+      246,
+      93,
+      949,
+      796,
+      643,
+      490,
+      337,
+      184,
+      31,
+      887,
+      734,
+      581,
+      428,
+      275,
+      122,
+      978,
+      825,
+      672,
+      519,
+      366,
+      213,
+      60,
+      916,
+      763,
+      610,
+      457,
+      304,
+      151,
+      1007,
+      854,
+      701,
+      548,
+      395,
+      242,
+      89,
+      945,
+      792,
+      639,
+      486,
+      333,
+      180,
+      27,
+      883,
+      730,
+      577,
+      424,
+      271,
+      118,
+      974,
+      821,
+      668,
+      515,
+      362,
+      209,
+      56,
+      912,
+      759,
+      606,
+      453,
+      300,
+      147,
+      1003,
+      850,
+      697,
+      544,
+      391,
+      238,
+      85,
+      941,
+      788,
+      635,
+      482,
+      329,
+      176,
+      23,
+      879,
+      726,
+      573,
+      420,
+      267,
+      114,
+      970,
+      817,
+      664,
+      511,
+      358,
+      205,
+      52,
+      908,
+      755,
+      602,
+      449,
+      296,
+      143,
+      999,
+      846,
+      693,
+      540,
+      387,
+      234,
+      81,
+      937,
+      784,
+      631,
+      478,
+      325,
+      172,
+      19,
+      875,
+      722,
+      569,
+      416,
+      263,
+      110,
+      966,
+      813,
+      660,
+      507,
+      354,
+      201,
+      48,
+      904,
+      751,
+      598,
+      445,
+      292,
+      139,
+      995,
+      842,
+      689,
+      536,
+      383,
+      230,
+      77,
+      933,
+      780,
+      627,
+      474,
+      321,
+      168,
+      15,
+      871,
+      718,
+      565,
+      412,
+      259,
+      106,
+      962,
+      809,
+      656,
+      503,
+      350,
+      197,
+      44,
+      900,
+      747,
+      594,
+      441,
+      288,
+      135,
+      991,
+      838,
+      685,
+      532,
+      379,
+      226,
+      73,
+      929,
+      776,
+      623,
+      470,
+      317,
+      164,
+      11,
+      867,
+      714,
+      561,
+      408,
+      255,
+      102,
+      958,
+      805,
+      652,
+      499,
+      346,
+      193,
+      40,
+      896,
+      743,
+      590,
+      437,
+      284,
+      131,
+      987,
+      834,
+      681,
+      528,
+      375,
+      222,
+      69,
+      925,
+      772,
+      619,
+      466,
+      313,
+      160,
+      7,
+      863,
+      710,
+      557,
+      404,
+      251,
+      98,
+      954,
+      801,
+      648,
+      495,
+      342,
+      189,
+      36,
+      892,
+      739,
+      586,
+      433,
+      280,
+      127,
+      983,
+      830,
+      677,
+      524,
+      371,
+      218,
+      65,
+      921,
+      768,
+      615,
+      462,
+      309,
+      156,
+      3,
+      859,
+      706,
+      553,
+      400,
+      247,
+      94,
+      950,
+      797,
+      644,
+      491,
+      338,
+      185,
+      32,
+      888,
+      735,
+      582,
+      429,
+      276,
+      123,
+      979,
+      826,
+      673,
+      520,
+      367,
+      214,
+      61,
+      917,
+      764,
+      611,
+      458,
+      305,
+      152,
+      1008,
+      855,
+      702,
+      549,
+      396,
+      243,
+      90,
+      946,
+      793,
+      640,
+      487,
+      334,
+      181,
+      28,
+      884,
+      731,
+      578,
+      425,
+      272,
+      119,
+      975,
+      822,
+      669,
+      516,
+      363,
+      210,
+      57,
+      913,
+      760,
+      607,
+      454,
+      301,
+      148,
+      1004,
+      851,
+      698,
+      545,
+      392,
+      239,
+      86,
+      942,
+      789,
+      636,
+      483,
+      330,
+      177,
+      24,
+      880,
+      727,
+      574,
+      421,
+      268,
+      115,
+      971,
+      818,
+      665,
+      512,
+      359,
+      206,
+      53,
+      909,
+      756,
+      603,
+      450,
+      297,
+      144,
+      1000,
+      847,
+      694,
+      541,
+      388,
+      235,
+      82,
+      938,
+      785,
+      632,
+      479,
+      326,
+      173,
+      20,
+      876,
+      723,
+      570,
+      417,
+      264,
+      111,
+      967,
+      814,
+      661,
+      508,
+      355,
+      202,
+      49,
+      905,
+      752,
+      599,
+      446,
+      293,
+      140,
+      996,
+      843,
+      690,
+      537,
+      384,
+      231,
+      78,
+      934,
+      781,
+      628,
+      475,
+      322,
+      169,
+      16,
+      872,
+      719,
+      566,
+      413,
+      260,
+      107,
+      963,
+      810,
+      657,
+      504,
+      351,
+      198,
+      45,
+      901,
+      748,
+      595,
+      442,
+      289,
+      136,
+      992,
+      839,
+      686,
+      533,
+      380,
+      227,
+      74,
+      930,
+      777,
+      624,
+      471,
+      318,
+      165,
+      12,
+      868,
+      715,
+      562,
+      409,
+      256,
+      103,
+      959,
+      806,
+      653,
+      500,
+      347,
+      194,
+      41,
+      897,
+      744,
+      591,
+      438,
+      285,
+      132,
+      988,
+      835,
+      682,
+      529,
+      376,
+      223,
+      70,
+      926,
+      773,
+      620,
+      467,
+      314,
+      161,
+      8,
+      864,
+      711,
+      558,
+      405,
+      252,
+      99,
+      955,
+      802,
+      649,
+      496,
+      343,
+      190,
+      37,
+      893,
+      740,
+      587,
+      434,
+      281,
+      128,
+      984,
+      831,
+      678,
+      525,
+      372,
+      219,
+      66,
+      922,
+      769,
+      616,
+      463,
+      310,
+      157,
+      4,
+      860,
+      707,
+      554,
+      401,
+      248,
+      95,
+      951,
+      798,
+      645,
+      492,
+      339,
+      186,
+      33,
+      889,
+      736,
+      583,
+      430,
+      277,
+      124,
+      980,
+      827,
+      674,
+      521,
+      368,
+      215,
+      62,
+      918,
+      765,
+      612,
+      459,
+      306,
+      153,
+      0,
+      856,
+      703,
+      550,
+      397,
+      244,
+      91,
+      947,
+      794,
+      641,
+      488,
+      335,
+      182,
+      29,
+      885,
+      732,
+      579,
+      426,
+      273,
+      120,
+      976,
+      823,
+      670,
+      517,
+      364,
+      211,
+      58,
+      914,
+      761,
+      608,
+      455,
+      302,
+      149,
+      1005,
+      852,
+      699,
+      546,
+      393,
+      240,
+      87,
+      943,
+      790,
+      637,
+      484,
+      331,
+      178,
+      25,
+      881,
+      728,
+      575,
+      422,
+      269,
+      116,
+      972,
+      819,
+      666,
+      513,
+      360,
+      207,
+      54,
+      910,
+      757,
+      604,
+      451,
+      298,
+      145,
+      1001,
+      848,
+      695,
+      542,
+      389,
+      236,
+      83,
+      939,
+      786,
+      633,
+      480,
+      327,
+      174,
+      21,
+      877,
+      724,
+      571,
+      418,
+      265,
+      112,
+      968,
+      815,
+      662,
+      509,
+      356,
+      203,
+      50,
+      906,
+      753,
+      600,
+      447,
+      294,
+      141,
+      997,
+      844,
+      691,
+      538,
+      385,
+      232,
+      79,
+      935,
+      782,
+      629,
+      476,
+      323,
+      170,
+      17,
+      873,
+      720,
+      567,
+      414,
+      261,
+      108,
+      964,
+      811,
+      658,
+      505,
+      352,
+      199,
+      46,
+      902,
+      749,
+      596,
+      443,
+      290,
+      137,
+      993,
+      840,
+      687,
+      534,
+      381,
+      228,
+      75,
+      931,
+      778,
+      625,
+      472,
+      319,
+      166,
+      13,
+      869,
+      716,
+      563,
+      410,
+      257,
+      104,
+      960,
+      807,
+      654,
+      501,
+      348,
+      195,
+      42,
+      898,
+      745,
+      592,
+      439,
+      286,
+      133,
+      989,
+      836,
+      683,
+      530,
+      377,
+      224,
+      71,
+      927,
+      774,
+      621,
+      468,
+      315,
+      162,
+      9,
+      865,
+      712,
+      559,
+      406,
+      253,
+      100,
+      956,
+      803,
+      650,
+      497,
+      344,
+      191,
+      38,
+      894,
+      741,
+      588,
+      435,
+      282,
+      129,
+      985,
+      832,
+      679,
+      526,
+      373,
+      220,
+      67,
+      923,
+      770,
+      617,
+      464,
+      311,
+      158,
+      5,
+      861,
+      708,
+      555,
+      402,
+      249,
+      96,
+      952,
+      799,
+      646,
+      493,
+      340,
+      187,
+      34,
+      890,
+      737,
+      584,
+      431,
+      278,
+      125,
+      981,
+      828,
+      675,
+      522,
+      369,
+      216,
+      63,
+      919,
+      766,
+      613,
+      460,
+      307,
+      154,
+      1,
+      857,
+      704,
+      551,
+      398,
+      245,
+      92,
+      948,
+      795,
+      642,
+      489,
+      336,
+      183,
+      30,
+      886,
+      733,
+      580,
+      427,
+      274,
+      121,
+      977,
+      824,
+      671,
+      518,
+      365,
+      212,
+      59,
+      915,
+      762,
+      609,
+      456,
+      303,
+      150,
+      1006,
+      853,
+      700,
+      547,
+      394,
+      241,
+      88,
+      944,
+      791,
+      638,
+      485,
+      332,
+      179,
+      26,
+      882,
+      729,
+      576,
+      423,
+      270,
+      117,
+      973,
+      820,
+      667,
+      514,
+      361,
+      208,
+      55,
+      911,
+      758,
+      605,
+      452,
+      299,
+      146,
+      1002,
+      849,
+      696,
+      543,
+      390,
+      237,
+      84,
+      940,
+      787,
+      634,
+      481,
+      328,
+      175,
+      22,
+      878,
+      725,
+      572,
+      419,
+      266,
+      113,
+      969,
+      816,
+      663,
+      510,
+      357,
+      204,
+      51,
+      907,
+      754,
+      601,
+      448,
+      295,
+      142,
+      998,
+      845,
+      692,
+      539,
+      386,
+      233,
+      80,
+      936,
+      783,
+      630,
+      477,
+      324,
+      171,
+      18,
+      874,
+      721,
+      568,
+      415,
+      262,
+      109,
+      965,
+      812,
+      659,
+      506,
+      353,
+      200,
+      47,
+      903,
+      750,
+      597,
+      444,
+      291,
+      138,
+      994,
+      841,
+      688,
+      535,
+      382,
+      229,
+      76,
+      932,
+      779,
+      626,
+      473,
+      320,
+      167,
+      14,
+      870,
+      717,
+      564,
+      411,
+      258,
+      105,
+      961,
+      808,
+      655,
+      502,
+      349,
+      196,
+      43,
+      899,
+      746,
+      593,
+      440,
+      287,
+      134,
+      990,
+      837,
+      684,
+      531,
+      378,
+      225,
+      72,
+      928,
+      775,
+      622,
+      469,
+      316,
+      163,
+      10,
+      866,
+      713,
+      560,
+      407,
+      254,
+      101,
+      957,
+      804,
+      651,
+      498,
+      345,
+      192,
+      39,
+      895,
+      742,
+      589,
+      436,
+      283,
+      130,
+      986,
+      833,
+      680,
+      527,
+      374,
+      221,
+      68,
+      924,
+      771,
+      618,
+      465,
+      312,
+      159,
+      6,
+      862,
+      709,
+      556,
+      403,
+      250,
+      97,
+      953,
+      800,
+      647,
+      494,
+      341,
+      188,
+      35,
+      891,
+      738,
+      585,
+      432,
+      279,
+      126,
+      982,
+      829,
+      676,
+      523,
+      370,
+      217,
+      64,
+      920,
+      767,
+      614,
+      461,
+      308,
+      155,
+      2,
+      858,
+      705,
+      552,
+      399,
+      246,
+      93,
+      949,
+      796,
+      643,
+      490,
+      337,
+      184,
+      31,
+      887,
+      734,
+      581,
+      428,
+      275,
+      122,
+      978,
+      825,
+      672,
+      519,
+      366,
+      213,
+      60,
+      916,
+      763,
+      610,
+      457,
+      304,
+      151,
+      1007,
+      854,
+      701,
+      548,
+      395,
+      242,
+      89,
+      945,
+      792,
+      639,
+      486,
+      333,
+      180,
+      27,
+      883,
+      730,
+      577,
+      424,
+      271,
+      118,
+      974,
+      821,
+      668,
+      515,
+      362,
+      209,
+      56,
+      912,
+      759,
+      606,
+      453,
+      300,
+      147,
+      1003,
+      850,
+      697,
+      544,
+      391,
+      238,
+      85,
+      941,
+      788,
+      635,
+      482,
+      329,
+      176,
+      23,
+      879,
+      726,
+      573,
+      420,
+      267,
+      114,
+      970,
+      817,
+      664,
+      511,
+      358,
+      205,
+      52,
+      908,
+      755,
+      602,
+      449,
+      296,
+      143,
+      999,
+      846,
+      693,
+      540,
+      387,
+      234,
+      81,
+      937,
+      784,
+      631,
+      478,
+      325,
+      172,
+      19,
+      875,
+      722,
+      569,
+      416,
+      263,
+      110,
+      966,
+      813,
+      660,
+      507,
+      354,
+      201,
+      48,
+      904,
+      751,
+      598,
+      445,
+      292,
+      139,
+      995,
+      842,
+      689,
+      536,
+      383,
+      230,
+      77,
+      933,
+      780,
+      627,
+      474,
+      321,
+      168,
+      15,
+      871,
+      718,
+      565,
+      412,
+      259,
+      106,
+      962,
+      809,
+      656,
+      503,
+      350,
+      197,
+      44,
+      900,
+      747,
+      594,
+      441,
+      288,
+      135,
+      991,
+      838,
+      685,
+      532,
+      379,
+      226,
+      73,
+      929,
+      776,
+      623,
+      470,
+      317,
+      164,
+      11,
+      867,
+      714,
+      561,
+      408,
+      255,
+      102,
+      958,
+      805,
+      652,
+      499,
+      346,
+      193,
+      40,
+      896,
+      743,
+      590,
+      437,
+      284,
+      131,
+      987,
+      834,
+      681,
+      528,
+      375,
+      222,
+      69,
+      925,
+      772,
+      619,
+      466,
+      313,
+      160,
+      7,
+      863,
+      710,
+      557,
+      404,
+      251,
+      98,
+      954,
+      801,
+      648,
+      495,
+      342,
+      189,
+      36,
+      892,
+      739,
+      586,
+      433,
+      280,
+      127,
+      983,
+      830,
+      677,
+      524,
+      371,
+      218,
+      65,
+      921,
+      768,
+      615,
+      462,
+      309,
+      156,
+      3,
+      859,
+      706,
+      553,
+      400,
+      247,
+      94,
+      950,
+      797,
+      644,
+      491,
+      338,
+      185,
+      32,
+      888,
+      735,
+      582,
+      429,
+      276,
+      123,
+      979,
+      826,
+      673,
+      520,
+      367,
+      214,
+      61,
+      917,
+      764,
+      611,
+      458,
+      305,
+      152,
+      1008,
+      855,
+      702,
+      549,
+      396,
+      243,
+      90,
+      946,
+      793,
+      640,
+      487,
+      334,
+      181,
+      28,
+      884,
+      731,
+      578,
+      425,
+      272,
+      119,
+      975,
+      822,
+      669,
+      516,
+      363,
+      210,
+      57,
+      913,
+      760,
+      607,
+      454,
+      301,
+      148,
+      1004,
+      851,
+      698,
+      545,
+      392,
+      239,
+      86,
+      942,
+      789,
+      636,
+      483,
+      330,
+      177,
+      24,
+      880,
+      727,
+      574,
+      421,
+      268,
+      115,
+      971,
+      818,
+      665,
+      512,
+      359,
+      206,
+      53,
+      909,
+      756,
+      603,
+      450,
+      297,
+      144,
+      1000,
+      847,
+      694,
+      541,
+      388,
+      235,
+      82,
+      938,
+      785,
+      632,
+      479,
+      326,
+      173,
+      20,
+      876,
+      723,
+      570,
+      417,
+      264,
+      111,
+      967,
+      814,
+      661,
+      508,
+      355,
+      202,
+      49,
+      905,
+      752,
+      599,
+      446,
+      293,
+      140,
+      996,
+      843,
+      690,
+      537,
+      384,
+      231,
+      78,
+      934,
+      781,
+      628,
+      475,
+      322,
+      169,
+      16,
+      872,
+      719,
+      566,
+      413,
+      260,
+      107,
+      963,
+      810,
+      657,
+      504,
+      351,
+      198,
+      45,
+      901,
+      748,
+      595,
+      442,
+      289,
+      136,
+      992,
+      839,
+      686,
+      533,
+      380,
+      227,
+      74,
+      930,
+      777,
+      624,
+      471,
+      318,
+      165,
+      12,
+      868,
+      715,
+      562,
+      409,
+      256,
+      103,
+      959,
+      806,
+      653,
+      500,
+      347,
+      194,
+      41,
+      897,
+      744,
+      591,
+      438,
+      285,
+      132,
+      988,
+      835,
+      682,
+      529,
+      376,
+      223,
+      70,
+      926,
+      773,
+      620,
+      467,
+      314,
+      161,
+      8,
+      864,
+      711,
+      558,
+      405,
+      252,
+      99,
+      955,
+      802,
+      649,
+      496,
+      343,
+      190,
+      37,
+      893,
+      740,
+      587,
+      434,
+      281,
+      128,
+      984,
+      831,
+      678,
+      525,
+      372,
+      219,
+      66,
+      922,
+      769,
+      616,
+      463,
+      310,
+      157,
+      4,
+      860,
+      707,
+      554,
+      401,
+      248
+     ]
+    ],
+    "expected": 45
+   }
+  ],
+  "solution": "def solve(nums):\n    from bisect import bisect_left\n    tails = []\n    for x in nums:\n        i = bisect_left(tails, x)\n        if i == len(tails):\n            tails.append(x)\n        else:\n            tails[i] = x\n    return len(tails)",
+  "rating": 1550,
+  "starter": "def solve(nums):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "rendu-monnaie",
+  "title": "Rendu de monnaie optimal",
+  "level": 4,
+  "tags": [
+   "programmation dynamique"
+  ],
+  "statement": "Avec des pièces de valeurs `pieces` (quantité illimitée), retourner le **nombre minimal** de pièces\npour former exactement `montant`, ou $-1$ si c'est impossible.\nL'algorithme glouton n'est pas toujours optimal (essaie $\\{1, 3, 4\\}$ et $6$).",
+  "func": "solve",
+  "params": [
+   "pieces",
+   "montant"
+  ],
+  "hint": "dp[s] = 1 + min(dp[s − c]) sur les pièces c ≤ s.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     [
+      1,
+      3,
+      4
+     ],
+     6
+    ],
+    "expected": 2
+   },
+   {
+    "args": [
+     [
+      2
+     ],
+     3
+    ],
+    "expected": -1
+   },
+   {
+    "args": [
+     [
+      1,
+      2,
+      5
+     ],
+     11
+    ],
+    "expected": 3
+   },
+   {
+    "args": [
+     [
+      7
+     ],
+     0
+    ],
+    "expected": 0
+   },
+   {
+    "args": [
+     [
+      186,
+      419,
+      83,
+      408
+     ],
+     6249
+    ],
+    "expected": 20
+   },
+   {
+    "args": [
+     [
+      3,
+      7,
+      405,
+      436
+     ],
+     8839
+    ],
+    "expected": 25
+   }
+  ],
+  "solution": "def solve(pieces, montant):\n    INF = float(\"inf\")\n    dp = [0] + [INF] * montant\n    for s in range(1, montant + 1):\n        for c in pieces:\n            if c <= s and dp[s - c] + 1 < dp[s]:\n                dp[s] = dp[s - c] + 1\n    return dp[montant] if dp[montant] != INF else -1",
+  "rating": 1550,
+  "starter": "def solve(pieces, montant):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "gauss",
+  "title": "Système linéaire (pivot de Gauss)",
+  "level": 4,
+  "tags": [
+   "algèbre linéaire",
+   "analyse numérique"
+  ],
+  "statement": "Résoudre $A x = b$ pour $A$ carrée inversible et retourner $x$ (liste de flottants).\nUtilise le pivot de Gauss **avec pivot partiel** (choisir le plus grand $|a_{ic}|$).\n\n(Tolérance : $10^{-6}$.)",
+  "func": "solve",
+  "params": [
+   "A",
+   "b"
+  ],
+  "hint": "Élimine colonne par colonne ; pense à échanger les lignes si le pivot est nul.",
+  "tol": 1e-06,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     [
+      [
+       2,
+       1
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     [
+      3,
+      5
+     ]
+    ],
+    "expected": [
+     0.7999999999999999,
+     1.4
+    ]
+   },
+   {
+    "args": [
+     [
+      [
+       1,
+       0,
+       0
+      ],
+      [
+       0,
+       2,
+       0
+      ],
+      [
+       0,
+       0,
+       4
+      ]
+     ],
+     [
+      1,
+      1,
+      1
+     ]
+    ],
+    "expected": [
+     1.0,
+     0.5,
+     0.25
+    ]
+   },
+   {
+    "args": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       0
+      ]
+     ],
+     [
+      2,
+      3
+     ]
+    ],
+    "expected": [
+     3.0,
+     2.0
+    ]
+   },
+   {
+    "args": [
+     [
+      [
+       3,
+       2,
+       -1
+      ],
+      [
+       2,
+       -2,
+       4
+      ],
+      [
+       -1,
+       0.5,
+       -1
+      ]
+     ],
+     [
+      1,
+      -2,
+      0
+     ]
+    ],
+    "expected": [
+     1.0,
+     -1.9999999999999996,
+     -1.9999999999999993
+    ]
+   },
+   {
+    "args": [
+     [
+      [
+       4,
+       -2,
+       1,
+       3
+      ],
+      [
+       3,
+       6,
+       -4,
+       2
+      ],
+      [
+       2,
+       1,
+       8,
+       -5
+      ],
+      [
+       1,
+       -1,
+       2,
+       7
+      ]
+     ],
+     [
+      20,
+      9,
+      14,
+      18
+     ]
+    ],
+    "expected": [
+     3.5448851774530272,
+     0.40344467640918596,
+     1.8157620041753655,
+     1.6038622129436326
+    ]
+   }
+  ],
+  "solution": "def solve(A, b):\n    n = len(A)\n    M = [list(map(float, A[i])) + [float(b[i])] for i in range(n)]\n    for c in range(n):\n        p = max(range(c, n), key=lambda r: abs(M[r][c]))\n        M[c], M[p] = M[p], M[c]\n        for r in range(n):\n            if r != c:\n                f = M[r][c] / M[c][c]\n                for k in range(c, n + 1):\n                    M[r][k] -= f * M[c][k]\n    return [M[i][n] / M[i][i] for i in range(n)]",
+  "rating": 1550,
+  "starter": "def solve(A, b):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "binomial-mod",
+  "title": "Coefficients binomiaux modulo p",
+  "level": 4,
+  "tags": [
+   "combinatoire",
+   "arithmétique modulaire"
+  ],
+  "statement": "Retourner $\\binom{n}{k} \\bmod p$ avec $p = 10^9 + 7$ (premier) et $n \\le 10^6$.\n\n$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!} \\equiv n! \\cdot (k!)^{-1} \\cdot ((n-k)!)^{-1} \\pmod p$$\n\nRappel (Fermat) : $a^{-1} \\equiv a^{p-2} \\pmod p$.",
+  "func": "solve",
+  "params": [
+   "n",
+   "k"
+  ],
+  "hint": "Calcule numérateur et dénominateur modulo p, puis inverse le dénominateur.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     5,
+     2
+    ],
+    "expected": 10
+   },
+   {
+    "args": [
+     10,
+     0
+    ],
+    "expected": 1
+   },
+   {
+    "args": [
+     3,
+     5
+    ],
+    "expected": 0
+   },
+   {
+    "args": [
+     1000,
+     500
+    ],
+    "expected": 159835829
+   },
+   {
+    "args": [
+     1000000,
+     123456
+    ],
+    "expected": 609024512
+   },
+   {
+    "args": [
+     52,
+     5
+    ],
+    "expected": 2598960
+   }
+  ],
+  "solution": "def solve(n, k):\n    p = 10**9 + 7\n    if k < 0 or k > n:\n        return 0\n    num = den = 1\n    for i in range(k):\n        num = num * (n - i) % p\n        den = den * (i + 1) % p\n    return num * pow(den, p - 2, p) % p",
+  "rating": 1550,
+  "starter": "def solve(n, k):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "somme-premiers",
+  "title": "Somme des premiers ≤ n",
+  "level": 5,
+  "tags": [
+   "nombres premiers",
+   "performance"
+  ],
+  "statement": "Retourner $\\displaystyle\\sum_{p \\le n,\\ p \\text{ premier}} p$ pour $n$ jusqu'à $2\\cdot 10^6$\n(le code tourne dans le navigateur : il faut un crible efficace, idéalement avec `bytearray` et du slicing).",
+  "func": "solve",
+  "params": [
+   "n"
+  ],
+  "hint": "Le slicing s[i*i::i] = bytes(...) barre tous les multiples d'un coup.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     10
+    ],
+    "expected": 17
+   },
+   {
+    "args": [
+     1
+    ],
+    "expected": 0
+   },
+   {
+    "args": [
+     100
+    ],
+    "expected": 1060
+   },
+   {
+    "args": [
+     2000000
+    ],
+    "expected": 142913828922
+   }
+  ],
+  "solution": "def solve(n):\n    if n < 2:\n        return 0\n    s = bytearray([1]) * (n + 1)\n    s[0] = s[1] = 0\n    for i in range(2, int(n ** 0.5) + 1):\n        if s[i]:\n            s[i*i::i] = bytes(len(range(i*i, n + 1, i)))\n    return sum(i for i in range(n + 1) if s[i])",
+  "rating": 1800,
+  "starter": "def solve(n):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "restes-chinois",
+  "title": "Théorème des restes chinois",
+  "level": 5,
+  "tags": [
+   "arithmétique modulaire"
+  ],
+  "statement": "Trouver le plus petit $x \\ge 0$ tel que $x \\equiv r_i \\pmod{m_i}$ pour tout $i$.\nLes modules **ne sont pas forcément premiers entre eux** : retourner $-1$ si le système est incompatible.\n\nPour deux congruences : solution ssi $\\gcd(m_1, m_2) \\mid r_2 - r_1$.",
+  "func": "solve",
+  "params": [
+   "restes",
+   "modules"
+  ],
+  "hint": "Fusionne les congruences deux à deux avec l'inverse modulaire de M/g modulo m/g.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     [
+      2,
+      3,
+      2
+     ],
+     [
+      3,
+      5,
+      7
+     ]
+    ],
+    "expected": 23
+   },
+   {
+    "args": [
+     [
+      1,
+      2
+     ],
+     [
+      4,
+      6
+     ]
+    ],
+    "expected": -1
+   },
+   {
+    "args": [
+     [
+      3,
+      1
+     ],
+     [
+      4,
+      6
+     ]
+    ],
+    "expected": 7
+   },
+   {
+    "args": [
+     [
+      0
+     ],
+     [
+      5
+     ]
+    ],
+    "expected": 0
+   },
+   {
+    "args": [
+     [
+      1,
+      2,
+      3,
+      4
+     ],
+     [
+      5,
+      7,
+      9,
+      11
+     ]
+    ],
+    "expected": 1731
+   },
+   {
+    "args": [
+     [
+      10,
+      4,
+      12
+     ],
+     [
+      11,
+      12,
+      13
+     ]
+    ],
+    "expected": 1000
+   }
+  ],
+  "solution": "def solve(restes, modules):\n    from math import gcd\n    x, M = 0, 1\n    for r, m in zip(restes, modules):\n        g = gcd(M, m)\n        if (r - x) % g:\n            return -1\n        l = M // g * m\n        t = ((r - x) // g) * pow(M // g, -1, m // g) % (m // g) if m // g > 1 else 0\n        x = (x + M * t) % l\n        M = l\n    return x % M",
+  "rating": 1800,
+  "starter": "def solve(restes, modules):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "triangulaire-diviseurs",
+  "title": "Triangulaire très divisible",
+  "level": 5,
+  "tags": [
+   "diviseurs",
+   "performance"
+  ],
+  "statement": "Les nombres triangulaires sont $T_k = \\frac{k(k+1)}{2}$. Retourner le premier $T_k$ ayant **strictement plus de**\n$d$ diviseurs.\n\nAstuce : $k$ et $k+1$ sont premiers entre eux, donc $\\tau(T_k)$ se factorise.",
+  "func": "solve",
+  "params": [
+   "d"
+  ],
+  "hint": "τ est multiplicative : τ(T_k) = τ(k/2)·τ(k+1) ou τ(k)·τ((k+1)/2).",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     1
+    ],
+    "expected": 3
+   },
+   {
+    "args": [
+     5
+    ],
+    "expected": 28
+   },
+   {
+    "args": [
+     50
+    ],
+    "expected": 25200
+   },
+   {
+    "args": [
+     200
+    ],
+    "expected": 2031120
+   },
+   {
+    "args": [
+     320
+    ],
+    "expected": 17907120
+   }
+  ],
+  "solution": "def solve(d):\n    def tau(n):\n        c, p = 1, 2\n        while p * p <= n:\n            e = 0\n            while n % p == 0:\n                n //= p\n                e += 1\n            c *= e + 1\n            p += 1\n        return c * (2 if n > 1 else 1)\n    k = 1\n    while True:\n        a, b = (k // 2, k + 1) if k % 2 == 0 else (k, (k + 1) // 2)\n        if tau(a) * tau(b) > d:\n            return k * (k + 1) // 2\n        k += 1",
+  "rating": 1800,
+  "starter": "def solve(d):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "marches-graphe",
+  "title": "Marches dans un graphe",
+  "level": 5,
+  "tags": [
+   "algèbre linéaire",
+   "graphes"
+  ],
+  "statement": "Soit $A$ la matrice d'adjacence d'un graphe orienté à $n$ sommets. Le nombre de marches de longueur $k$\nde $i$ à $j$ vaut $(A^k)_{ij}$. Retourner le nombre de marches de longueur $k$ du sommet $0$ au sommet $n-1$,\nmodulo $10^9+7$, avec $k$ jusqu'à $10^{12}$.",
+  "func": "solve",
+  "params": [
+   "adj",
+   "k"
+  ],
+  "hint": "Exponentiation rapide de la matrice d'adjacence.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       0
+      ]
+     ],
+     3
+    ],
+    "expected": 1
+   },
+   {
+    "args": [
+     [
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       0
+      ]
+     ],
+     2
+    ],
+    "expected": 0
+   },
+   {
+    "args": [
+     [
+      [
+       1,
+       1,
+       0
+      ],
+      [
+       0,
+       1,
+       1
+      ],
+      [
+       1,
+       0,
+       1
+      ]
+     ],
+     5
+    ],
+    "expected": 11
+   },
+   {
+    "args": [
+     [
+      [
+       0,
+       1,
+       1,
+       0
+      ],
+      [
+       1,
+       0,
+       1,
+       1
+      ],
+      [
+       1,
+       1,
+       0,
+       1
+      ],
+      [
+       0,
+       1,
+       1,
+       0
+      ]
+     ],
+     1000000000000
+    ],
+    "expected": 226891467
+   },
+   {
+    "args": [
+     [
+      [
+       1
+      ]
+     ],
+     7
+    ],
+    "expected": 1
+   }
+  ],
+  "solution": "def solve(adj, k):\n    MOD = 10**9 + 7\n    n = len(adj)\n    def mul(X, Y):\n        return [[sum(X[i][t] * Y[t][j] for t in range(n)) % MOD for j in range(n)] for i in range(n)]\n    R = [[int(i == j) for j in range(n)] for i in range(n)]\n    M = [row[:] for row in adj]\n    while k:\n        if k & 1:\n            R = mul(R, M)\n        M = mul(M, M)\n        k >>= 1\n    return R[0][n - 1]",
+  "rating": 1800,
+  "starter": "def solve(adj, k):\n    # ton code ici\n    pass\n"
+ },
+ {
+  "id": "cycle-decimal",
+  "title": "Période du développement décimal",
+  "level": 5,
+  "tags": [
+   "arithmétique modulaire",
+   "numération"
+  ],
+  "statement": "Pour $2 \\le d < n$, $\\frac{1}{d}$ a un développement décimal éventuellement périodique.\nRetourner le $d$ dont la **période** est la plus longue (le plus petit en cas d'égalité).\n\nLa période de $1/d$ (après avoir retiré les facteurs $2$ et $5$) est l'ordre multiplicatif de $10$ modulo $d$.",
+  "func": "solve",
+  "params": [
+   "n"
+  ],
+  "hint": "Simule la division longue, ou calcule l'ordre de 10 modulo d.",
+  "tol": null,
+  "examples": 3,
+  "tests": [
+   {
+    "args": [
+     10
+    ],
+    "expected": 7
+   },
+   {
+    "args": [
+     100
+    ],
+    "expected": 97
+   },
+   {
+    "args": [
+     1000
+    ],
+    "expected": 983
+   },
+   {
+    "args": [
+     3000
+    ],
+    "expected": 2971
+   }
+  ],
+  "solution": "def solve(n):\n    best, best_d = -1, 2\n    for d in range(2, n):\n        m = d\n        while m % 2 == 0:\n            m //= 2\n        while m % 5 == 0:\n            m //= 5\n        if m == 1:\n            L = 0\n        else:\n            L, r = 1, 10 % m\n            while r != 1:\n                r = r * 10 % m\n                L += 1\n        if L > best:\n            best, best_d = L, d\n    return best_d",
+  "rating": 1800,
+  "starter": "def solve(n):\n    # ton code ici\n    pass\n"
+ }
+]

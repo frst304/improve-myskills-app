@@ -1,0 +1,35 @@
+{
+  "name": "improve-myskills-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Improve myskills app — progresser chaque jour en échecs, calcul mental et algorithmie Python.",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c magenta,cyan \"node --watch-path=server server/index.js\" \"vite\"",
+    "build": "vite build",
+    "start": "node server/index.js",
+    "gen:problems": "python scripts/gen_problems.py"
+  },
+  "dependencies": {
+    "@codemirror/commands": "^6.11.1",
+    "@codemirror/lang-python": "^6.2.1",
+    "@codemirror/language": "^6.13.1",
+    "@codemirror/state": "^6.7.6",
+    "@codemirror/view": "^6.43.14",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "@lezer/highlight": "^1.2.5",
+    "chess.js": "^1.4.0",
+    "chessground": "^9.2.1",
+    "codemirror": "^6.0.2",
+    "express": "^5.3.0",
+    "katex": "^0.19.0",
+    "vue": "^3.5.44",
+    "vue-router": "^4.6.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.10",
+    "concurrently": "^10.0.6",
+    "vite": "^8.3.4"
+  }
+}
